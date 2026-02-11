@@ -3,105 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCP Professional Cloud Architect - Ultimate Cheat Sheet</title>
+    <title>GCP Professional Cloud Architect - Cheat Sheet</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --gcp-blue: #4285F4; --gcp-red: #EA4335; --gcp-yellow: #FBBC04; --gcp-green: #34A853;
-            --bg-gray: #f1f3f4; --text-dark: #202124; --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --gcp-blue: #4285F4;
+            --gcp-red: #EA4335;
+            --gcp-yellow: #FBBC04;
+            --gcp-green: #34A853;
+            --bg-gray: #f1f3f4;
+            --text-dark: #202124;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg-gray); color: var(--text-dark); margin: 0; padding: 20px; }
+
+        body {
+            font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
         .container { max-width: 1400px; margin: 0 auto; }
-        header { text-align: center; padding: 30px; background: white; border-radius: 12px; margin-bottom: 25px; box-shadow: var(--shadow); border-top: 10px solid var(--gcp-blue); }
-        h1 { margin: 0; color: var(--gcp-blue); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: var(--shadow); border-left: 6px solid #ccc; }
-        h2 { font-size: 1.2rem; margin-top: 0; display: flex; align-items: center; color: #1a73e8; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-top: 10px solid var(--gcp-blue);
+        }
+
+        h1 { margin: 0; color: var(--gcp-blue); font-size: 2.2rem; }
+        .subtitle { color: #5f6368; font-weight: 500; margin-top: 5px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 6px solid #ccc;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            color: #1a73e8;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
         h2 i { margin-right: 12px; }
-        .tag { display: inline-block; background: #e8f0fe; color: #1967d2; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-right: 5px; }
-        .item { margin-bottom: 10px; font-size: 0.9rem; }
-        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.8rem; }
-        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; }
-        .highlight-box { background: #fff4e5; border: 1px dashed #ff9800; padding: 10px; border-radius: 6px; margin-top: 10px; font-size: 0.85rem; }
+
+        .tag {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .item { margin-bottom: 12px; font-size: 0.95rem; }
+        .label { font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.85rem;
+        }
+
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; color: #5f6368; }
+
+        .highlight-box {
+            background: #fff4e5;
+            border: 1px dashed #ff9800;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Color Coding */
         .security { border-left-color: var(--gcp-red); }
         .network { border-left-color: var(--gcp-yellow); }
         .compute { border-left-color: var(--gcp-green); }
         .storage { border-left-color: #a142f4; }
         .data { border-left-color: #00bcd4; }
         .dr { border-left-color: #607d8b; }
+
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
 <div class="container">
     <header>
-        <h1>GCP Cloud Architect Cheat Sheet</h1>
-        <p>Strategic Reference for Certification & Design</p>
+        <h1>Cloud Architect Certification Cheat Sheet</h1>
+        <p class="subtitle">Preparation Guide • Key Concepts • Decision Logic</p>
     </header>
+
     <div class="grid">
+
         <div class="card security">
             <h2><i class="fas fa-shield-alt"></i> Security & Governance</h2>
-            <div class="item"><span class="tag">DLP API</span> Mask/Redact PII in text/images.</div>
-            <div class="item"><span class="tag">IAP</span> SSH/HTTPS access without Public IPs or VPN.</div>
-            <div class="item"><span class="tag">VPC SC</span> Data exfiltration protection (Perimeter).</div>
-            <div class="item"><span class="tag">Binary Auth</span> GKE: Only deploy trusted/signed images.</div>
-            <div class="item"><span class="tag">IAM</span> Folders for Prod/Dev; Custom Roles for Least Privilege.</div>
+            <div class="item"><span class="tag">DLP API</span> Data Loss Prevention: Mask/Redact PII.</div>
+            <div class="item"><span class="tag">IAP</span> Identity Aware Proxy: Access VMs/Apps without VPN or Public IPs.</div>
+            <div class="item"><span class="tag">VPC SC</span> Service Controls: Prevent exfiltration by creating a perimeter.</div>
+            <div class="item"><span class="tag">Binary Auth</span> GKE: Deploy only signed/authorized images.</div>
+            <div class="item"><span class="tag">IAM</span> Principle of Least Privilege: Use Custom Roles over Primitives.</div>
+            <div class="item"><span class="tag">CMEK/CSEK</span> Encryption: Managed by Google, Customer, or On-prem.</div>
         </div>
 
         <div class="card data">
-            <h2><i class="fas fa-project-diagram"></i> Messaging & ETL Logic</h2>
+            <h2><i class="fas fa-project-diagram"></i> Data Processing & Messaging</h2>
             <table>
-                <tr><th>Service</th><th>Primary Goal</th><th>Differentiator</th></tr>
-                <tr><td><b>Pub/Sub</b></td><td>Decoupling</td><td>Streaming, 1-to-Many</td></tr>
-                <tr><td><b>Cloud Tasks</b></td><td>Orchestration</td><td>Rate-limiting, scheduling</td></tr>
-                <tr><td><b>Dataflow</b></td><td>Transformation</td><td>ETL, Windowing, Late data</td></tr>
+                <tr><th>Service</th><th>Context</th><th>Action</th></tr>
+                <tr><td><b>Pub/Sub</b></td><td>Async Ingest</td><td>Fire & Forget (Decouple)</td></tr>
+                <tr><td><b>Cloud Tasks</b></td><td>Orchestration</td><td>Rate-limit, Schedule, Retries</td></tr>
+                <tr><td><b>Dataflow</b></td><td><b>ETL</b> / Stream</td><td>Transform, Enrich, Windowing</td></tr>
             </table>
             <div class="highlight-box">
-                <b>Keyword Check:</b> "Transform" = Dataflow. "Buffer" = Pub/Sub. "Handover/Retry" = Tasks.
+                <b>Decision Tip:</b> If the question says <i>"Group data by time window"</i> or <i>"Deduplicate during transformation,"</i> pick <b>Dataflow</b>. If it says <i>"Buffering messages for microservices,"</i> pick <b>Pub/Sub</b>.
             </div>
         </div>
 
         <div class="card network">
-            <h2><i class="fas fa-network-wired"></i> Networking & LBs</h2>
-            <div class="item"><span class="tag">Global HTTP(S) LB</span> Layer 7, Global, CDN & Cloud Armor.</div>
-            <div class="item"><span class="tag">Network LB</span> Layer 4, Regional, UDP/TCP.</div>
-            <div class="item"><span class="tag">Shared VPC</span> Network admin in Host, resources in Service projects.</div>
-            <div class="item"><span class="tag">VPC Peering</span> Connect networks; non-transitive.</div>
+            <h2><i class="fas fa-network-wired"></i> Network & Load Balancing</h2>
+            <div class="item"><span class="tag">HTTP(S) LB</span> Global Layer 7: Best for Web apps, CDN, and WAF.</div>
+            <div class="item"><span class="tag">Network LB</span> Regional Layer 4: Best for UDP/TCP traffic.</div>
+            <div class="item"><span class="tag">Shared VPC</span> Centralized network for multiple projects.</div>
+            <div class="item"><span class="tag">Private Svc Connect</span> Access GCP APIs via internal IP (No NAT/IGW needed).</div>
+            <div class="item"><span class="tag">Cloud Armor</span> Anti-DDoS + WAF (SQLi, XSS filtering).</div>
         </div>
 
         <div class="card storage">
-            <h2><i class="fas fa-database"></i> Storage & Migration</h2>
-            <div class="item"><span class="tag">Near/Cold/Archive</span> 30 / 90 / 365 day min storage duration.</div>
-            <div class="item"><span class="tag">Bigtable</span> High-throughput NoSQL (IoT/Time-series).</div>
-            <div class="item"><span class="tag">GCSFUSE</span> Mount GCS bucket to Linux VM.</div>
-            <div class="item"><span class="tag">DMS</span> Serverless SQL migration (Postgres/MySQL).</div>
+            <h2><i class="fas fa-database"></i> Storage & Data Management</h2>
+            <div class="item"><span class="tag">Nearline</span> Accessed < 1/mo (30-day min charge).</div>
+            <div class="item"><span class="tag">Coldline</span> Accessed < 1/qtr (90-day min charge).</div>
+            <div class="item"><span class="tag">Bigtable</span> High throughput, NoSQL (IoT, Time-series).</div>
+            <div class="item"><span class="tag">GCSFUSE</span> Mount Cloud Storage buckets as local disks.</div>
+            <div class="item"><span class="tag">BigQuery</span> Data Warehouse. Serverless. Use for SQL analytics.</div>
         </div>
 
         <div class="card dr">
-            <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR)</h2>
-            <div class="item"><b>Cold:</b> Static site/Backups. High RTO (hours/days).</div>
-            <div class="item"><b>Warm:</b> (Pilot Light) DB running, App scaled to zero. Medium RTO.</div>
-            <div class="item"><b>Hot:</b> Active-Active multi-region. Zero RPO/RTO. High Cost.</div>
-            <div class="highlight-box"><b>Exam Tip:</b> Spanner is natively multi-regional/High Availability.</div>
+            <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR) Strategy</h2>
+            <div class="item"><span class="label">RTO (Recovery Time Objective):</span> How long can you be down?</div>
+            <div class="item"><span class="label">RPO (Recovery Point Objective):</span> How much data loss can you tolerate?</div>
+            <div class="item"><b>Cold DR:</b> Minimal cost. Recreate resources from backups/scripts (High RTO).</div>
+            <div class="item"><b>Warm DR:</b> Balanced. Minimal services running (e.g., DB replication) + scale up.</div>
+            <div class="item"><b>Hot DR:</b> Highest cost. Full active-active in two regions (Near zero RTO/RPO).</div>
         </div>
 
         <div class="card compute">
             <h2><i class="fas fa-server"></i> Compute & GKE</h2>
-            <div class="item"><span class="tag">Autopilot</span> Managed nodes; Pay-per-Pod.</div>
-            <div class="item"><span class="tag">Istio (Mesh)</span> Secure pod-to-pod comms & traffic splitting.</div>
-            <div class="item"><span class="tag">HPA vs CA</span> HPA = scale pods; CA = scale underlying VMs.</div>
-            <div class="item"><span class="tag">Eventarc</span> Convert any GCP action into a Cloud Run trigger.</div>
+            <div class="item"><span class="tag">Istio/Mesh</span> Handles Service-to-Service auth and visibility.</div>
+            <div class="item"><span class="tag">Autopilot</span> Pay for Pods. GKE manages the nodes/security.</div>
+            <div class="item"><span class="tag">HPA / CA</span> <b>HPA</b> = Vertical scaling (pods); <b>CA</b> = Cluster scaling (nodes).</div>
+            <div class="item"><span class="tag">Eventarc</span> Trigger Serverless (Cloud Run) via GCP events.</div>
         </div>
 
-        <div class="card" style="border-left-color: #000; grid-column: 1 / -1;">
-            <h2><i class="fas fa-exclamation-triangle"></i> Strategic Exam Traps</h2>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div class="item"><b>Svc Transfer Svc:</b> Cloud-to-Cloud (e.g., S3 to GCS) or Online On-prem to GCS.</div>
-                <div class="item"><b>Transfer Appliance:</b> <i>Physical</i> box for 10TB-Petabytes of offline data.</div>
-                <div class="item"><b>Organization Policy:</b> Restricts <i>what</i> can be done (e.g., "No external IPs"). <b>IAM</b> defines <i>who</i>.</div>
-            </div>
-        </div>
     </div>
 </div>
+
 </body>
 </html>
