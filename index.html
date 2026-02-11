@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCP Cloud Architect Cheat Sheet</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gcp-blue: #4285F4;
+            --gcp-red: #EA4335;
+            --gcp-yellow: #FBBC04;
+            --gcp-green: #34A853;
+            --bg-gray: #f8f9fa;
+            --text-dark: #202124;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-top: 8px solid var(--gcp-blue);
+        }
+
+        h1 { color: var(--gcp-blue); margin: 0; font-size: 2.5em; }
+        .subtitle { color: #5f6368; font-weight: bold; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+            border-left: 5px solid var(--gcp-blue);
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 1.3em;
+            color: #1a73e8;
+        }
+
+        h2 i { margin-right: 10px; }
+
+        .item { margin-bottom: 12px; }
+        .label { font-weight: bold; color: #3c4043; }
+        .desc { font-size: 0.95em; color: #5f6368; }
+
+        .tag {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .highlight { background-color: #fff4e5; border: 1px dashed #ff9800; padding: 10px; border-radius: 5px; margin-top: 10px; }
+
+        .security { border-left-color: var(--gcp-red); }
+        .network { border-left-color: var(--gcp-yellow); }
+        .compute { border-left-color: var(--gcp-green); }
+        .storage { border-left-color: #a142f4; }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1><i class="fab fa-google-drive"></i> GCP Cloud Architect</h1>
+        <p class="subtitle">Quick Reference & Certification Cheat Sheet</p>
+    </header>
+
+    <div class="grid">
+        
+        <div class="card security">
+            <h2><i class="fas fa-shield-alt"></i> Security & Governance</h2>
+            <div class="item">
+                <span class="tag">DLP API</span> <span class="label">Sensitive Data:</span> Redact/Mask PII (Names, CCs) in text or images.
+            </div>
+            <div class="item">
+                <span class="tag">IAP</span> <span class="label">Identity Aware Proxy:</span> Access VMs/Web Apps via SSH/HTTPS without public IPs.
+            </div>
+            <div class="item">
+                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use Custom Roles. <i>Hierarchy:</i> Org > Folders > Projects > Resources.
+            </div>
+            <div class="item">
+                <span class="tag">VPC SC</span> <span class="label">VPC Service Controls:</span> Creates a perimeter to prevent data exfiltration (protects BQ, GCS).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud Armor</span> <span class="label">WAF/DDoS:</span> IP Blacklisting, SQLi/XSS protection for Global Load Balancers.
+            </div>
+            <div class="item">
+                <span class="tag">Binary Auth</span> <span class="label">GKE Security:</span> Ensures only signed/trusted images are deployed to K8s.
+            </div>
+            <div class="item">
+                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed).
+            </div>
+        </div>
+
+        <div class="card network">
+            <h2><i class="fas fa-network-wired"></i> Networking & Connectivity</h2>
+            <div class="item">
+                <span class="tag">VPC</span> <span class="label">Global/Regional:</span> VPCs are Global, Subnets are <b>Regional</b>.
+            </div>
+            <div class="item">
+                <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages network for multiple service projects.
+            </div>
+            <div class="item">
+                <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connect two VPCs directly (non-transitive).
+            </div>
+            <div class="item">
+                <span class="tag">PSC</span> <span class="label">Private Service Connect:</span> Access Google APIs or 3rd party services via private IPs.
+            </div>
+            <div class="item">
+                <span class="tag">Interconnect</span> <span class="label">Hybrid:</span> <b>Dedicated</b> (Physical line), <b>Partner</b> (via ISP), <b>Cloud VPN</b> (IPsec over public web).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud DNS</span> <span class="label">Resolution:</span> Use 169.254.169.254 for metadata/internal resolution.
+            </div>
+        </div>
+
+        <div class="card compute">
+            <h2><i class="fas fa-server"></i> Compute & Modernization</h2>
+            <div class="item">
+                <span class="tag">Istio</span> <span class="label">Service Mesh:</span> Traffic management, security, and observability for microservices.
+            </div>
+            <div class="item">
+                <span class="tag">Eventarc</span> <span class="label">Event-Driven:</span> Trigger Cloud Run/Functions from 90+ GCP sources (GCS, PubSub).
+            </div>
+            <div class="item">
+                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.
+            </div>
+            <div class="item">
+                <span class="tag">HPA / CA</span> <span class="label">Scaling:</span> <b>HPA</b> (more pods), <b>CA</b> (more nodes), <b>VPA</b> (bigger pods).
+            </div>
+            <div class="item">
+                <span class="tag">K8s Namespace</span> <span class="label">Isolation:</span> Logical environments; use <b>ResourceQuotas</b> to limit CPU/RAM per team.
+            </div>
+        </div>
+
+        <div class="card storage">
+            <h2><i class="fas fa-database"></i> Storage & Data</h2>
+            <div class="item">
+                <span class="tag">GCSFUSE</span> <span class="label">File Mount:</span> Mount GCS buckets as local file systems on Linux.
+            </div>
+            <div class="item">
+                <span class="tag">GCS Classes</span> <span class="label">Cost/Access:</span> 
+                <ul>
+                    <li><b>Standard:</b> Hot data.</li>
+                    <li><b>Nearline:</b> Accessed < 1/month (30 day min).</li>
+                    <li><b>Coldline:</b> Accessed < 1/quarter (90 day min).</li>
+                    <li><b>Archive:</b> Accessed < 1/year (365 day min).</li>
+                </ul>
+            </div>
+            <div class="item">
+                <span class="tag">Bigtable</span> <span class="label">NoSQL:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema.
+            </div>
+            <div class="item">
+                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis/Memcached. Sub-millisecond latency.
+            </div>
+            <div class="item">
+                <span class="tag">DMS / Transfer</span> <span class="label">Migration:</span> 
+                <b>DMS</b> for SQL migrations. <b>Transfer Appliance</b> for high-volume physical data (offline).
+            </div>
+        </div>
+
+        <div class="card" style="border-left-color: #000;">
+            <h2><i class="fas fa-lightbulb"></i> Architect Strategy (Pro Tips)</h2>
+            <div class="highlight">
+                <b>Decision Matrix:</b><br>
+                - Need SQL + Global Scaling? ⮕ <b>Spanner</b><br>
+                - Need SQL + Vertical Scaling? ⮕ <b>Cloud SQL</b><br>
+                - Need Web Scale NoSQL? ⮕ <b>Firestore</b><br>
+                - Need Hadoop/Spark? ⮕ <b>Dataproc</b><br>
+                - Need Data Warehouse/Analytics? ⮕ <b>BigQuery</b>
+            </div>
+            <div class="item" style="margin-top:15px;">
+                <span class="tag">Ops Suite</span> <span class="label">Monitoring:</span> Cloud Logging (errors), Cloud Monitoring (metrics), Cloud Trace (latency), Cloud Debugger.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
