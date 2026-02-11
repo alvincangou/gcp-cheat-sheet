@@ -88,10 +88,11 @@
 
         .highlight { background-color: #fff4e5; border: 1px dashed #ff9800; padding: 10px; border-radius: 5px; margin-top: 10px; }
 
-        /* New CSS for Tables */
+        /* CSS for Tables */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; }
         th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
         th { background-color: #f1f3f4; }
+        ul { margin: 5px 0; padding-left: 20px; font-size: 0.9em; color: #5f6368; }
 
         /* Color Classes */
         .security { border-left-color: var(--gcp-red); }
@@ -101,6 +102,7 @@
         .messaging { border-left-color: #ff6d00; }
         .dr { border-left-color: #607d8b; }
         .lb { border-left-color: #3f51b5; }
+        .analytics { border-left-color: #00acc1; } /* New Cyan Color for BigQuery */
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
@@ -235,6 +237,28 @@
             </div>
         </div>
 
+        <div class="card analytics">
+            <h2><i class="fas fa-chart-line"></i> BigQuery & Analytics</h2>
+            <div class="item">
+                <span class="tag">Serverless DW</span> <span class="label">Architecture:</span> Decoupled storage (Colossus) & compute (Dremel). SQL Interface.
+            </div>
+            <div class="item">
+                <span class="tag">Optimization</span> <span class="label">Cost/Speed:</span>
+                <ul>
+                    <li><b>Partitioning:</b> Divide table by Date/Time/Int (Scans less data).</li>
+                    <li><b>Clustering:</b> Sort data within partitions (Faster filters).</li>
+                </ul>
+            </div>
+            <div class="item">
+                <span class="tag">Security</span> <span class="label">Views:</span> Use <b>Authorized Views</b> to share query results without granting access to underlying raw tables.
+            </div>
+            <div class="item">
+                <span class="tag">BQML</span> <span class="label">ML in SQL:</span> Build models (Linear Reg, K-Means) directly in BigQuery using standard SQL.
+            </div>
+            <div class="item">
+                <span class="tag">Federated</span> <span class="label">External:</span> Query data residing in GCS, Bigtable, or SQL (Cloud SQL) without moving it.
+            </div>
+        </div>
         <div class="card dr">
             <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR)</h2>
             <div class="item"><span class="label">RTO:</span> Time to recover. <span class="label">RPO:</span> Acceptable data loss.</div>
