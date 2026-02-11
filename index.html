@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCP Professional Cloud Architect - Cheat Sheet</title>
+    <title>GCP Cloud Architect Cheat Sheet</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -11,59 +11,69 @@
             --gcp-red: #EA4335;
             --gcp-yellow: #FBBC04;
             --gcp-green: #34A853;
-            --bg-gray: #f1f3f4;
+            --bg-gray: #f8f9fa;
             --text-dark: #202124;
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         body {
-            font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-gray);
             color: var(--text-dark);
+            line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
         header {
             text-align: center;
-            padding: 30px;
+            padding: 40px 0;
             background: white;
             border-radius: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow);
-            border-top: 10px solid var(--gcp-blue);
+            border-top: 8px solid var(--gcp-blue);
         }
 
-        h1 { margin: 0; color: var(--gcp-blue); font-size: 2.2rem; }
-        .subtitle { color: #5f6368; font-weight: 500; margin-top: 5px; }
+        h1 { color: var(--gcp-blue); margin: 0; font-size: 2.5em; }
+        .subtitle { color: #5f6368; font-weight: bold; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
         }
 
         .card {
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 20px;
             box-shadow: var(--shadow);
-            border-left: 6px solid #ccc;
+            transition: transform 0.2s;
+            border-left: 5px solid var(--gcp-blue);
         }
+
+        .card:hover { transform: translateY(-5px); }
 
         h2 {
-            font-size: 1.25rem;
-            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
             display: flex;
             align-items: center;
+            font-size: 1.3em;
             color: #1a73e8;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
         }
 
-        h2 i { margin-right: 12px; }
+        h2 i { margin-right: 10px; }
+
+        .item { margin-bottom: 12px; }
+        .label { font-weight: bold; color: #3c4043; }
+        .desc { font-size: 0.95em; color: #5f6368; }
 
         .tag {
             display: inline-block;
@@ -71,110 +81,187 @@
             color: #1967d2;
             padding: 2px 8px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8em;
             font-weight: bold;
             margin-right: 5px;
         }
 
-        .item { margin-bottom: 12px; font-size: 0.95rem; }
-        .label { font-weight: bold; }
+        .highlight { background-color: #fff4e5; border: 1px dashed #ff9800; padding: 10px; border-radius: 5px; margin-top: 10px; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-            font-size: 0.85rem;
-        }
+        /* New CSS for Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+        th { background-color: #f1f3f4; }
 
-        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; color: #5f6368; }
-
-        .highlight-box {
-            background: #fff4e5;
-            border: 1px dashed #ff9800;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        /* Color Coding */
+        /* Color Classes */
         .security { border-left-color: var(--gcp-red); }
         .network { border-left-color: var(--gcp-yellow); }
         .compute { border-left-color: var(--gcp-green); }
         .storage { border-left-color: #a142f4; }
-        .data { border-left-color: #00bcd4; }
+        .messaging { border-left-color: #ff6d00; }
         .dr { border-left-color: #607d8b; }
+        .lb { border-left-color: #3f51b5; }
 
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Cloud Architect Certification Cheat Sheet</h1>
-        <p class="subtitle">Preparation Guide • Key Concepts • Decision Logic</p>
+        <h1><i class="fab fa-google-drive"></i> GCP Cloud Architect</h1>
+        <p class="subtitle">Quick Reference & Certification Cheat Sheet</p>
     </header>
 
     <div class="grid">
-
+        
         <div class="card security">
             <h2><i class="fas fa-shield-alt"></i> Security & Governance</h2>
-            <div class="item"><span class="tag">DLP API</span> Data Loss Prevention: Mask/Redact PII.</div>
-            <div class="item"><span class="tag">IAP</span> Identity Aware Proxy: Access VMs/Apps without VPN or Public IPs.</div>
-            <div class="item"><span class="tag">VPC SC</span> Service Controls: Prevent exfiltration by creating a perimeter.</div>
-            <div class="item"><span class="tag">Binary Auth</span> GKE: Deploy only signed/authorized images.</div>
-            <div class="item"><span class="tag">IAM</span> Principle of Least Privilege: Use Custom Roles over Primitives.</div>
-            <div class="item"><span class="tag">CMEK/CSEK</span> Encryption: Managed by Google, Customer, or On-prem.</div>
+            <div class="item">
+                <span class="tag">DLP API</span> <span class="label">Sensitive Data:</span> Redact/Mask PII (Names, CCs) in text or images.
+            </div>
+            <div class="item">
+                <span class="tag">IAP</span> <span class="label">Identity Aware Proxy:</span> Access VMs/Web Apps via SSH/HTTPS without public IPs.
+            </div>
+            <div class="item">
+                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use Custom Roles. <i>Hierarchy:</i> Org > Folders > Projects > Resources.
+            </div>
+            <div class="item">
+                <span class="tag">VPC SC</span> <span class="label">VPC Service Controls:</span> Creates a perimeter to prevent data exfiltration (protects BQ, GCS).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud Armor</span> <span class="label">WAF/DDoS:</span> IP Blacklisting, SQLi/XSS protection for Global Load Balancers.
+            </div>
+            <div class="item">
+                <span class="tag">Binary Auth</span> <span class="label">GKE Security:</span> Ensures only signed/trusted images are deployed to K8s.
+            </div>
+            <div class="item">
+                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed).
+            </div>
         </div>
 
-        <div class="card data">
-            <h2><i class="fas fa-project-diagram"></i> Data Processing & Messaging</h2>
+        <div class="card messaging">
+            <h2><i class="fas fa-exchange-alt"></i> Messaging & Data Logic</h2>
             <table>
                 <tr><th>Service</th><th>Context</th><th>Action</th></tr>
                 <tr><td><b>Pub/Sub</b></td><td>Async Ingest</td><td>Fire & Forget (Decouple)</td></tr>
                 <tr><td><b>Cloud Tasks</b></td><td>Orchestration</td><td>Rate-limit, Schedule, Retries</td></tr>
-                <tr><td><b>Dataflow</b></td><td><b>ETL</b> / Stream</td><td>Transform, Enrich, Windowing</td></tr>
+                <tr><td><b>Dataflow</b></td><td>ETL / Stream</td><td>Transform, Enrich, Windowing</td></tr>
             </table>
-            <div class="highlight-box">
-                <b>Decision Tip:</b> If the question says <i>"Group data by time window"</i> or <i>"Deduplicate during transformation,"</i> pick <b>Dataflow</b>. If it says <i>"Buffering messages for microservices,"</i> pick <b>Pub/Sub</b>.
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>Decision Tip:</b> "Group data by time window" or "Unified Batch/Stream" = <b>Dataflow</b>. "Buffer messages" = <b>Pub/Sub</b>.
             </div>
         </div>
 
         <div class="card network">
-            <h2><i class="fas fa-network-wired"></i> Network & Load Balancing</h2>
-            <div class="item"><span class="tag">HTTP(S) LB</span> Global Layer 7: Best for Web apps, CDN, and WAF.</div>
-            <div class="item"><span class="tag">Network LB</span> Regional Layer 4: Best for UDP/TCP traffic.</div>
-            <div class="item"><span class="tag">Shared VPC</span> Centralized network for multiple projects.</div>
-            <div class="item"><span class="tag">Private Svc Connect</span> Access GCP APIs via internal IP (No NAT/IGW needed).</div>
-            <div class="item"><span class="tag">Cloud Armor</span> Anti-DDoS + WAF (SQLi, XSS filtering).</div>
+            <h2><i class="fas fa-network-wired"></i> Networking & Connectivity</h2>
+            <div class="item">
+                <span class="tag">VPC</span> <span class="label">Global/Regional:</span> VPCs are Global, Subnets are <b>Regional</b>.
+            </div>
+            <div class="item">
+                <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages network for multiple service projects.
+            </div>
+            <div class="item">
+                <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connect two VPCs directly (non-transitive).
+            </div>
+            <div class="item">
+                <span class="tag">PSC</span> <span class="label">Private Service Connect:</span> Access Google APIs or 3rd party services via private IPs.
+            </div>
+            <div class="item">
+                <span class="tag">Interconnect</span> <span class="label">Hybrid:</span> <b>Dedicated</b> (Physical line), <b>Partner</b> (via ISP), <b>Cloud VPN</b> (IPsec over public web).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud DNS</span> <span class="label">Resolution:</span> Use 169.254.169.254 for metadata/internal resolution.
+            </div>
         </div>
 
-        <div class="card storage">
-            <h2><i class="fas fa-database"></i> Storage & Data Management</h2>
-            <div class="item"><span class="tag">Nearline</span> Accessed < 1/mo (30-day min charge).</div>
-            <div class="item"><span class="tag">Coldline</span> Accessed < 1/qtr (90-day min charge).</div>
-            <div class="item"><span class="tag">Bigtable</span> High throughput, NoSQL (IoT, Time-series).</div>
-            <div class="item"><span class="tag">GCSFUSE</span> Mount Cloud Storage buckets as local disks.</div>
-            <div class="item"><span class="tag">BigQuery</span> Data Warehouse. Serverless. Use for SQL analytics.</div>
-        </div>
-
-        <div class="card dr">
-            <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR) Strategy</h2>
-            <div class="item"><span class="label">RTO (Recovery Time Objective):</span> How long can you be down?</div>
-            <div class="item"><span class="label">RPO (Recovery Point Objective):</span> How much data loss can you tolerate?</div>
-            <div class="item"><b>Cold DR:</b> Minimal cost. Recreate resources from backups/scripts (High RTO).</div>
-            <div class="item"><b>Warm DR:</b> Balanced. Minimal services running (e.g., DB replication) + scale up.</div>
-            <div class="item"><b>Hot DR:</b> Highest cost. Full active-active in two regions (Near zero RTO/RPO).</div>
+        <div class="card lb">
+            <h2><i class="fas fa-weight-hanging"></i> Load Balancing</h2>
+            <div class="item">
+                <span class="tag">Global HTTP(S)</span> <span class="label">Layer 7:</span> Web Apps, CDN, Cloud Armor, Multi-region failover.
+            </div>
+            <div class="item">
+                <span class="tag">Network LB</span> <span class="label">Layer 4:</span> Regional. TCP/UDP traffic (non-HTTP).
+            </div>
+            <div class="item">
+                <span class="tag">Internal LB</span> <span class="label">Private:</span> Use for internal microservices tiers.
+            </div>
         </div>
 
         <div class="card compute">
-            <h2><i class="fas fa-server"></i> Compute & GKE</h2>
-            <div class="item"><span class="tag">Istio/Mesh</span> Handles Service-to-Service auth and visibility.</div>
-            <div class="item"><span class="tag">Autopilot</span> Pay for Pods. GKE manages the nodes/security.</div>
-            <div class="item"><span class="tag">HPA / CA</span> <b>HPA</b> = Vertical scaling (pods); <b>CA</b> = Cluster scaling (nodes).</div>
-            <div class="item"><span class="tag">Eventarc</span> Trigger Serverless (Cloud Run) via GCP events.</div>
+            <h2><i class="fas fa-server"></i> Compute & Modernization</h2>
+            <div class="item">
+                <span class="tag">Istio</span> <span class="label">Service Mesh:</span> Traffic management, security, and observability for microservices.
+            </div>
+            <div class="item">
+                <span class="tag">Eventarc</span> <span class="label">Event-Driven:</span> Trigger Cloud Run/Functions from 90+ GCP sources (GCS, PubSub).
+            </div>
+            <div class="item">
+                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.
+            </div>
+            <div class="item">
+                <span class="tag">HPA / CA</span> <span class="label">Scaling:</span> <b>HPA</b> (more pods), <b>CA</b> (more nodes), <b>VPA</b> (bigger pods).
+            </div>
+            <div class="item">
+                <span class="tag">K8s Namespace</span> <span class="label">Isolation:</span> Logical environments; use <b>ResourceQuotas</b> to limit CPU/RAM per team.
+            </div>
+        </div>
+
+        <div class="card storage">
+            <h2><i class="fas fa-database"></i> Storage & Data</h2>
+            <div class="item">
+                <span class="tag">GCSFUSE</span> <span class="label">File Mount:</span> Mount GCS buckets as local file systems on Linux.
+            </div>
+            <div class="item">
+                <span class="tag">GCS Classes</span> <span class="label">Cost/Access:</span> 
+                <ul>
+                    <li><b>Standard:</b> Hot data.</li>
+                    <li><b>Nearline:</b> Accessed < 1/month (30 day min).</li>
+                    <li><b>Coldline:</b> Accessed < 1/quarter (90 day min).</li>
+                    <li><b>Archive:</b> Accessed < 1/year (365 day min).</li>
+                </ul>
+            </div>
+            <div class="item">
+                <span class="tag">Bigtable</span> <span class="label">NoSQL:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema.
+            </div>
+            <div class="item">
+                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis/Memcached. Sub-millisecond latency.
+            </div>
+            <div class="item">
+                <span class="tag">DMS / Transfer</span> <span class="label">Migration:</span> 
+                <b>DMS</b> for SQL migrations. <b>Transfer Appliance</b> for high-volume physical data (offline).
+            </div>
+        </div>
+
+        <div class="card dr">
+            <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR)</h2>
+            <div class="item"><span class="label">RTO:</span> Time to recover. <span class="label">RPO:</span> Acceptable data loss.</div>
+            <div class="item"><b>Cold DR:</b> High RTO. Restore from backups. Cheapest.</div>
+            <div class="item"><b>Warm DR:</b> (Pilot Light) Database is sync'd, App is scaled to zero.</div>
+            <div class="item"><b>Hot DR:</b> Active-Active multi-region. Zero RTO/RPO. Expensive.</div>
+        </div>
+
+        <div class="card" style="border-left-color: #000;">
+            <h2><i class="fas fa-lightbulb"></i> Architect Strategy & Traps</h2>
+            <div class="highlight">
+                <b>Decision Matrix:</b><br>
+                - Need SQL + Global Scaling? ⮕ <b>Spanner</b><br>
+                - Need SQL + Vertical Scaling? ⮕ <b>Cloud SQL</b><br>
+                - Need Web Scale NoSQL? ⮕ <b>Firestore</b><br>
+                - Need Hadoop/Spark? ⮕ <b>Dataproc</b><br>
+                - Need Data Warehouse/Analytics? ⮕ <b>BigQuery</b>
+            </div>
+            <div class="item" style="margin-top:15px;">
+                <span class="tag">Ops Suite</span> <span class="label">Monitoring:</span> Cloud Logging (errors), Cloud Monitoring (metrics), Cloud Trace (latency), Cloud Debugger.
+            </div>
+            <div class="highlight" style="background-color: #ffebee; border-color: #ef5350;">
+                <b><i class="fas fa-exclamation-triangle"></i> Exam Traps:</b><br>
+                - <b>Transfer Appliance:</b> Use for physical offline data (>10TB).<br>
+                - <b>Storage Transfer Svc:</b> Use for Cloud-to-Cloud (S3->GCS).<br>
+                - <b>Org Policy:</b> Limits <i>what</i> resources can do. <b>IAM</b> limits <i>who</i>.
+            </div>
         </div>
 
     </div>
