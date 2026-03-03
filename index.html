@@ -102,7 +102,8 @@
         .messaging { border-left-color: #ff6d00; }
         .dr { border-left-color: #607d8b; }
         .lb { border-left-color: #3f51b5; }
-        .analytics { border-left-color: #00acc1; } /* New Cyan Color for BigQuery */
+        .analytics { border-left-color: #00acc1; } 
+        .deployment { border-left-color: #e91e63; } /* Pink color for Deployments */
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
@@ -210,6 +211,12 @@
                 <span class="tag">K8s Namespace</span> <span class="label">Isolation:</span> Logical environments; use <b>ResourceQuotas</b> to limit CPU/RAM per team.
             </div>
             <div class="item">
+                <span class="tag">DaemonSet</span> <span class="label">K8s Nodes:</span> Ensures a specific Pod runs on <i>all</i> (or matching) Nodes. Useful for logging or monitoring agents.
+            </div>
+            <div class="item">
+                <span class="tag">ReplicaSet</span> <span class="label">K8s Pods:</span> Maintains a stable set of replica Pods running at any given time (usually managed by Deployments).
+            </div>
+            <div class="item">
                 <span class="tag">Migrate for Compute</span> <span class="label">VM Lift & Shift:</span> Migrate VMs (VMware/AWS/Azure) to GCE with streaming replication & minimal downtime.
             </div>
             <div class="item">
@@ -217,6 +224,25 @@
             </div>
             <div class="item">
                 <span class="tag">Connect Gateway</span> <span class="label">Hybrid Access:</span> Securely access registered Anthos clusters via Google Cloud ID without public IPs.
+            </div>
+        </div>
+
+        <div class="card deployment">
+            <h2><i class="fas fa-rocket"></i> Deployments & Rollouts</h2>
+            <div class="item">
+                <span class="tag">Rolling Update</span> <span class="label">Gradual:</span> Slowly replaces old instances with new ones. Default K8s strategy. Zero downtime, but slower rollback.
+            </div>
+            <div class="item">
+                <span class="tag">Canary</span> <span class="label">Risk Mitigation:</span> Route a small percentage of live traffic (e.g., 5%) to the new version to test stability before full rollout.
+            </div>
+            <div class="item">
+                <span class="tag">Blue/Green</span> <span class="label">Instant Switch:</span> Deploy the new version (Green) alongside the old (Blue). Switch traffic 100% via Load Balancer. Instant rollback.
+            </div>
+            <div class="item">
+                <span class="tag">A/B Testing</span> <span class="label">Business Value:</span> Route specific users to a new version based on HTTP headers/cookies to measure conversion or user behavior.
+            </div>
+            <div class="item">
+                <span class="tag">Shadow</span> <span class="label">Safe Testing:</span> Mirror live production traffic to the new version without affecting end users to test scale and errors.
             </div>
         </div>
 
@@ -279,6 +305,7 @@
                 <span class="tag">Federated</span> <span class="label">External:</span> Query data residing in GCS, Bigtable, or SQL (Cloud SQL) without moving it.
             </div>
         </div>
+        
         <div class="card dr">
             <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR)</h2>
             <div class="item"><span class="label">RTO:</span> Time to recover. <span class="label">RPO:</span> Acceptable data loss.</div>
