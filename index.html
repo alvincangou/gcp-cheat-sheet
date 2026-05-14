@@ -129,7 +129,10 @@
                 <span class="tag">IAP</span> <span class="label">Identity Aware Proxy:</span> Access VMs/Web Apps via SSH/HTTPS without public IPs.
             </div>
             <div class="item">
-                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use Custom Roles. <i>Hierarchy:</i> Org > Folders > Projects > Resources.
+                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use <b>Predefined Roles</b> by default. Use <b>Custom Roles</b> only if predefined roles are too broad (avoids admin overhead).
+            </div>
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>IAM Hierarchy:</b> Organization > Folders > Projects > Resources. (Permissions inherit downward).
             </div>
             <div class="item">
                 <span class="tag">VPC SC</span> <span class="label">VPC Service Controls:</span> Creates a perimeter to prevent data exfiltration (protects BQ, GCS).
@@ -141,7 +144,7 @@
                 <span class="tag">Binary Auth</span> <span class="label">GKE Security:</span> Ensures only signed/trusted images are deployed to K8s.
             </div>
             <div class="item">
-                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed).
+                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed - Default).
             </div>
         </div>
 
