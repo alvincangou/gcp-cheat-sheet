@@ -176,7 +176,16 @@
                 <span class="tag">PSC</span> <span class="label">Private Service Connect:</span> Access Google APIs or 3rd party services via private IPs.
             </div>
             <div class="item">
+                <span class="tag">Direct VPC Egress</span> <span class="label">Serverless Native:</span> Routes Cloud Run/Functions traffic directly to VPC <b>without connector VMs</b> (lower latency, higher throughput, scales instantly).
+            </div>
+            <div class="item">
+                <span class="tag">VPC Connector</span> <span class="label">Serverless Legacy:</span> Uses <b>managed underlying VMs</b> to bridge serverless to VPC (has throughput caps, minimum cost, slower scaling).
+            </div>
+            <div class="item">
                 <span class="tag">Interconnect</span> <span class="label">Hybrid:</span> <b>Dedicated</b> (Physical line), <b>Partner</b> (via ISP), <b>Cloud VPN</b> (IPsec over public web).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud NAT</span> <span class="label">Static IP Egress:</span> Pair with Direct VPC Egress to give serverless workloads a <b>predictable, static outbound public IP</b>.
             </div>
             <div class="item">
                 <span class="tag">Cloud DNS</span> <span class="label">Resolution:</span> Use 169.254.169.254 for metadata/internal resolution.
