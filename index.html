@@ -146,6 +146,9 @@
             <div class="item">
                 <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed - Default).
             </div>
+            <div class="item">
+                <span class="tag">Workload Identity</span> <span class="label">Federation:</span> The secure way for AWS/Azure apps or GKE Pods to access GCP services. <b>Keyless authentication</b> (avoids downloading/rotating long-lived JSON service account keys).
+            </div>
         </div>
 
         <div class="card messaging">
@@ -211,13 +214,25 @@
         <div class="card compute">
             <h2><i class="fas fa-server"></i> Compute & Modernization</h2>
             <div class="item">
+                <span class="tag">App Engine Standard</span> <span class="label">PaaS:</span> Scales to zero instantly, bills by milliseconds. Restricted to specific language runtimes. Ideal for sudden traffic spikes.
+            </div>
+            <div class="item">
+                <span class="tag">App Engine Flex</span> <span class="label">Containers:</span> Uses underlying Compute Engine VMs. Slower to scale, <b>does not scale to zero</b>. Allows custom Dockerfiles and background threads.
+            </div>
+            <div class="item">
+                <span class="tag">Cloud Run</span> <span class="label">Serverless CaaS:</span> Run any stateless HTTP container. Scales to zero. Supports concurrent requests per instance (cheaper than Cloud Functions for high traffic).
+            </div>
+            <div class="item">
+                <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Use for legacy apps, custom kernels, strict licensing (BYOL), or specialized hardware (GPUs/TPUs).
+            </div>
+            <div class="item">
                 <span class="tag">Istio</span> <span class="label">Service Mesh:</span> Traffic management, security, and observability for microservices.
             </div>
             <div class="item">
                 <span class="tag">Eventarc</span> <span class="label">Event-Driven:</span> Trigger Cloud Run/Functions from 90+ GCP sources (GCS, PubSub).
             </div>
             <div class="item">
-                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.
+                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.Best for teams that want K8s without infrastructure overhead.
             </div>
             <div class="item">
                 <span class="tag">HPA / CA</span> <span class="label">Scaling:</span> <b>HPA</b> (more pods), <b>CA</b> (more nodes), <b>VPA</b> (bigger pods).
@@ -232,13 +247,34 @@
                 <span class="tag">ReplicaSet</span> <span class="label">K8s Pods:</span> Maintains a stable set of replica Pods running at any given time (usually managed by Deployments).
             </div>
             <div class="item">
-                <span class="tag">Migrate for Compute</span> <span class="label">VM Lift & Shift:</span> Migrate VMs (VMware/AWS/Azure) to GCE with streaming replication & minimal downtime.
+    <span class="tag">Migrate to Compute Engine</span> <span class="label">Lift & Shift:</span> Migrates physical/virtual VMs (AWS, Azure, VMware) directly to GCE via data streaming with minimal downtime.
+</div>
+<div class="item">
+    <span class="tag">Migrate to Containers</span> <span class="label">Modernization:</span> Automatically extracts application workloads from legacy VMs and converts them into container images for GKE or Cloud Run.
+</div>
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>Exam Trap:</b> If the prompt mentions "unpredictable traffic" + "cost optimization", look for <b>App Engine Standard</b> or <b>Cloud Run</b> (because they scale to 0).
+            </div>
+        </div>
+        <div class="card hybrid">
+            <h2><i class="fas fa-cloud"></i> Hybrid & Multi-Cloud</h2>
+            <div class="item">
+                <span class="tag">Anthos / GKE Ent.</span> <span class="label">Unified Platform:</span> Manage K8s clusters across GCP, AWS, Azure, and on-prem (Bare Metal/VMware) from a single pane of glass.
             </div>
             <div class="item">
-                <span class="tag">ACM</span> <span class="label">Anthos Config Mgmt:</span> GitOps for Hybrid/Multi-cloud. Sync policies & configs across fleets.
+                <span class="tag">BigQuery Omni</span> <span class="label">Multi-Cloud Analytics:</span> Query data residing in AWS S3 or Azure Blob storage using standard SQL <b>without moving or copying the data</b> to GCP.
             </div>
             <div class="item">
-                <span class="tag">Connect Gateway</span> <span class="label">Hybrid Access:</span> Securely access registered Anthos clusters via Google Cloud ID without public IPs.
+                <span class="tag">Cross-Cloud Interconnect</span> <span class="label">Networking:</span> A direct, high-bandwidth, dedicated physical connection between GCP and other cloud providers (AWS, Azure, OCI, Alibaba).
+            </div>
+            <div class="item">
+                <span class="tag">ACM</span> <span class="label">Anthos Config Mgmt:</span> GitOps approach. Sync security policies, RBAC, and cluster configs across your entire multi-cloud fleet automatically.
+            </div>
+            <div class="item">
+                <span class="tag">Connect Gateway</span> <span class="label">Secure Access:</span> Securely interact with registered external clusters via Google Cloud ID, bypassing the need for inbound firewall rules or public IPs.
+            </div>
+            <div class="item">
+                <span class="tag">Cloud Service Mesh</span> <span class="label">Traffic/Security:</span> Managed Istio. Provides mTLS encryption, traffic splitting, and unified telemetry across clusters spanning different clouds.
             </div>
         </div>
 
@@ -301,6 +337,15 @@
             </div>
              <div class="item">
                 <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (>10TB).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Provides a standby instance for automatic failover (Zero data loss).
+            </div>
+            <div class="item">
+                <span class="tag">Cloud SQL Replicas</span> <span class="label">Performance:</span> <b>Asynchronous</b> replication. Used to offload heavy read traffic or for cross-region Disaster Recovery (requires manual promotion).
+            </div>
+            <div class="item">
+                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent relational database. Handles global HA automatically. Minimum node requirements apply (expensive).
             </div>
         </div>
 
