@@ -167,14 +167,14 @@
                 <span class="tag">VPC</span> <span class="label">Global/Regional:</span> VPCs are Global, Subnets are <b>Regional</b>.
             </div>
             <div class="item">
-                <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages network for multiple service projects.
-            </div>
-            <div class="item">
-                <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connect two VPCs directly (non-transitive).
-            </div>
-            <div class="item">
-                <span class="tag">PSC</span> <span class="label">Private Service Connect:</span> Access Google APIs or 3rd party services via private IPs.
-            </div>
+    <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages a single network for multiple service projects, <b>preventing IP conflicts at the source</b> through centralized administration.
+</div>
+<div class="item">
+    <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connects two distinct VPCs directly (non-transitive). <b>Strictly impossible if there are overlapping (conflicting) CIDR ranges</b>.
+</div>
+<div class="item">
+    <span class="tag">PSC (Private Service Connect)</span> <span class="label">Network Abstraction:</span> Connects services (Google APIs, 3rd-party SaaS, or internal apps) via a single private IP endpoint <b>without network interconnection</b>, completely bypassing IP conflict issues.
+</div>
             <div class="item">
                 <span class="tag">Direct VPC Egress</span> <span class="label">Serverless Native:</span> Routes Cloud Run/Functions traffic directly to VPC <b>without connector VMs</b> (lower latency, higher throughput, scales instantly).
             </div>
