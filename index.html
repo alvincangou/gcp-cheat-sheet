@@ -302,6 +302,10 @@
 
         <div class="card storage">
             <h2><i class="fas fa-database"></i> Storage & Data</h2>
+
+            <!-- SECTION 1: OBJECT, FILE STORAGE & CACHING -->
+            <div class="section-divider" style="margin: 10px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Object, File Storage & Caching</div>
+            
             <div class="item">
                 <span class="tag">GCSFUSE</span> <span class="label">File Mount:</span> Mount GCS buckets as local file systems on Linux.
             </div>
@@ -309,13 +313,29 @@
                 <span class="tag">GCS Classes</span> <span class="label">Cost/Access:</span> 
                 <ul>
                     <li><b>Standard:</b> Hot data.</li>
-                    <li><b>Nearline:</b> Accessed < 1/month (30 day min).</li>
-                    <li><b>Coldline:</b> Accessed < 1/quarter (90 day min).</li>
-                    <li><b>Archive:</b> Accessed < 1/year (365 day min).</li>
+                    <li><b>Nearline:</b> Accessed &lt; 1/month (30 day min).</li>
+                    <li><b>Coldline:</b> Accessed &lt; 1/quarter (90 day min).</li>
+                    <li><b>Archive:</b> Accessed &lt; 1/year (365 day min).</li>
                 </ul>
             </div>
             <div class="item">
-                <span class="tag">Bigtable</span> <span class="label">NoSQL:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema. Supports native <b>Vector Search</b> for real-time GenAI grounding.
+                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis, Memcached, and <b>Valkey</b> (open-source alternative). Sub-millisecond latency for key-value caching.
+            </div>
+
+            <!-- SECTION 2: OPERATIONAL & NOSQL DATABASES -->
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Operational & NoSQL Databases</div>
+
+            <div class="item">
+                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Standby instance for auto-failover (Zero data loss). <i>Enterprise Plus</i> tier adds sub-second maintenance downtime and read data caching.
+            </div>
+            <div class="item">
+                <span class="tag">Cloud SQL Replicas</span> <span class="label">Performance:</span> <b>Asynchronous</b> replication. Used to offload heavy read traffic or for cross-region Disaster Recovery (requires manual promotion).
+            </div>
+            <div class="item">
+                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent relational database. Handles global HA automatically. Supports <b>Spanner Graph</b> (SQL + GQL query integration). Fine-grained sizing via Processing Units (PUs) removes strict 1-node minimum constraints.
+            </div>
+            <div class="item">
+                <span class="tag">Bigtable</span> <span class="label">NoSQL Key-Value:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema. Supports native <b>Vector Search</b> for real-time GenAI grounding.
             </div>
             <div class="item">
                 <span class="tag">Firestore</span> <span class="label">NoSQL Doc:</span> Serverless, transactional, real-time sync. Ideal for Mobile/Web apps. Supports native <b>Vector Search</b> (embeddings/RAG workloads).
@@ -323,11 +343,41 @@
             <div class="highlight" style="font-size: 0.9em;">
                 <b>Vs Bigtable:</b> Use <b>Firestore</b> for hierarchical docs/apps (ACID, real-time sync, mobile, user profile vector store). Use <b>Bigtable</b> for massive ingest/flat time-series (IoT/Analytics, high-volume operational vectors).
             </div>
+
+            <!-- SECTION 3: DATA LAKING & BIGQUERY ECOSYSTEM -->
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Data Lakehouse & BigQuery Ecosystem</div>
+
             <div class="item">
-                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis, Memcached, and <b>Valkey</b> (open-source alternative). Sub-millisecond latency for key-value caching.
+                <span class="tag">Lakehouse for Apache Iceberg</span> <span class="label">Open Storage Engine:</span> (Formerly BigLake). Decouples compute and storage using open formats (Iceberg/Parquet) on GCS with fine-grained access control.
             </div>
             <div class="item">
-                <span class="tag">Knowledge Catalog</span> <span class="label">Governance:</span> (Formerly Dataplex Universal Catalog). Gemini-powered active AI context graph to discover, secure, and monitor data across GCS/BigQuery. Serves as an enterprise truth engine for AI agents.
+                <span class="tag">Cross-cloud Lakehouse</span> <span class="label">Multi-Cloud Analytics:</span> (Formerly BigQuery Omni). Execute distributed BigQuery queries directly on AWS S3 or Azure Blob storage without data migration.
+            </div>
+            <div class="item">
+                <span class="tag">Federated Queries</span> <span class="label">Real-time Hybrid:</span> Query operational databases (Cloud SQL, Spanner, AlloyDB) directly from BigQuery in real time without data movement. Uses <code>EXTERNAL_QUERY()</code> or <b>External Datasets</b> mapping.
+            </div>
+            <div class="item">
+                <span class="tag">Spanner Columnar Engine</span> <span class="label">Performance:</span> Automatically accelerates federated queries and analytical scans up to 200x on live operational Spanner data using vectorized execution.
+            </div>
+            <div class="item">
+                <span class="tag">BigQuery Sharing</span> <span class="label">Data Exchange:</span> (Formerly Analytics Hub). Secure platform to share BigQuery datasets, ML models, and AI assets inside or outside the organization without data duplication.
+            </div>
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>Publisher-Subscriber Model:</b> Publishers create <b>Exchanges</b> and <b>Listings</b>. Subscribers access them via read-only <b>Linked Datasets</b>. Subscriber pays only for query compute; zero storage copy costs.
+            </div>
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>The BigQuery Quadrant:</b> 
+                1. <b>Federated:</b> Query operational DBs (Cloud SQL). 
+                2. <b>Cross-Cloud:</b> (Formerly BQ Omni) Query AWS/Azure files. 
+                3. <b>Lakehouse for Iceberg:</b> (Formerly BigLake) Query GCS files like tables. 
+                4. <b>Sharing:</b> (Formerly Analytics Hub) Share internal BQ data securely with external parties.
+            </div>
+
+            <!-- SECTION 4: GOVERNANCE, SECURITY & MIGRATION -->
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Governance, Security & Migration</div>
+
+            <div class="item">
+                <span class="tag">Knowledge Catalog</span> <span class="label">Governance:</span> (Formerly Dataplex Universal Catalog). Gemini-powered active AI context graph to discover, secure, and monitor data quality/lineage across GCS and BigQuery. Serves as an enterprise truth engine for AI agents.
             </div>
             <div class="highlight" style="font-size: 0.9em;">
                 <b>Vs VPC-SC:</b> <b>Knowledge Catalog / Dataplex</b> governs metadata discovery, data quality, and lineage (L7). <b>VPC Service Controls</b> creates a strict cryptographic network perimeter to prevent data exfiltration (L4).
@@ -339,27 +389,9 @@
                 <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, file systems, or HTTP to GCS. Scalable online migration.
             </div>
              <div class="item">
-                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (>10TB to hundreds of TBs).
+                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (&gt;10TB to hundreds of TBs).
             </div>
-            <div class="item">
-                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Standby instance for auto-failover. <i>Enterprise Plus</i> tier adds sub-second maintenance downtime and read data caching.
-            </div>
-            <div class="item">
-                <span class="tag">Cloud SQL Replicas</span> <span class="label">Performance:</span> <b>Asynchronous</b> replication. Used to offload heavy read traffic or for cross-region Disaster Recovery (requires manual promotion).
-            </div>
-            <div class="item">
-                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent. Now supports <b>Spanner Graph</b> (SQL + GQL query integration). Fine-grained sizing via Processing Units (PUs) removes strict 1-node minimum constraints for smaller apps.
-            </div>
-            <div class="item">
-                <span class="tag">Federated Queries</span> <span class="label">Real-time Hybrid:</span> Query operational databases (Cloud SQL, Spanner, AlloyDB) directly from BigQuery in real time without data movement. Uses <code>EXTERNAL_QUERY()</code> or <b>External Datasets</b> mapping.
-            </div>
-            <div class="highlight" style="font-size: 0.9em;">
-                <b>Vs BigLake / Cross-Cloud:</b> Use <b>Federated Queries</b> for transactional/relational live DBs (OLTP). Use <b>BigLake / Cross-Cloud Lakehouse</b> for querying files (Parquet/Iceberg) in Object Storage (GCS/S3/Azure).
-            </div>
-            <div class="item">
-                <span class="tag">Spanner Columnar Engine</span> <span class="label">Performance:</span> Automatically accelerates federated queries and analytical scans up to 200x on live operational Spanner data using vectorized execution.
-            </div>
-           </div> 
+        </div> 
         <div class="card analytics">
             <h2><i class="fas fa-chart-line"></i> BigQuery & Analytics</h2>
             <div class="item">
