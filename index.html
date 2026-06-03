@@ -315,43 +315,42 @@
                 </ul>
             </div>
             <div class="item">
-                <span class="tag">Bigtable</span> <span class="label">NoSQL:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema.
+                <span class="tag">Bigtable</span> <span class="label">NoSQL:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema. Supports native <b>Vector Search</b> for real-time GenAI grounding.
             </div>
             <div class="item">
-                <span class="tag">Firestore</span> <span class="label">NoSQL Doc:</span> Serverless, transactional, real-time sync. Ideal for Mobile/Web apps.
+                <span class="tag">Firestore</span> <span class="label">NoSQL Doc:</span> Serverless, transactional, real-time sync. Ideal for Mobile/Web apps. Supports native <b>Vector Search</b> (embeddings/RAG workloads).
             </div>
             <div class="highlight" style="font-size: 0.9em;">
-                <b>Vs Bigtable:</b> Use <b>Firestore</b> for hierarchical documents/apps (ACID). Use <b>Bigtable</b> for massive ingest/flat data (IoT/Analytics).
+                <b>Vs Bigtable:</b> Use <b>Firestore</b> for hierarchical docs/apps (ACID, real-time sync, mobile, user profile vector store). Use <b>Bigtable</b> for massive ingest/flat time-series (IoT/Analytics, high-volume operational vectors).
             </div>
             <div class="item">
-                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis/Memcached. Sub-millisecond latency.
+                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis, Memcached, and <b>Valkey</b> (open-source alternative). Sub-millisecond latency for key-value caching.
             </div>
             <div class="item">
-                <span class="tag">Dataplex</span> <span class="label">Governance:</span> Intelligent data fabric to unify, manage, and monitor data across GCS and BigQuery.
+                <span class="tag">Knowledge Catalog</span> <span class="label">Governance:</span> (Formerly Dataplex Universal Catalog). Gemini-powered active AI context graph to discover, secure, and monitor data across GCS/BigQuery. Serves as an enterprise truth engine for AI agents.
             </div>
             <div class="highlight" style="font-size: 0.9em;">
-                <b>Vs VPC-SC:</b> <b>Dataplex</b> governs data quality/lineage (L7). <b>VPC Service Controls</b> creates a network perimeter to prevent exfiltration (L4).
+                <b>Vs VPC-SC:</b> <b>Knowledge Catalog / Dataplex</b> governs metadata discovery, data quality, and lineage (L7). <b>VPC Service Controls</b> creates a strict cryptographic network perimeter to prevent data exfiltration (L4).
             </div>
             <div class="item">
                 <span class="tag">DMS</span> <span class="label">DB Migration:</span> Serverless migration for MySQL, PostgreSQL, SQL Server (Cloud SQL/AlloyDB).
             </div>
             <div class="item">
-                <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, or HTTP to GCS. Scalable online migration.
+                <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, file systems, or HTTP to GCS. Scalable online migration.
             </div>
              <div class="item">
-                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (>10TB).
+                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (>10TB to hundreds of TBs).
             </div>
             <div class="item">
-                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Provides a standby instance for automatic failover (Zero data loss).
+                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Standby instance for auto-failover. <i>Enterprise Plus</i> tier adds sub-second maintenance downtime and read data caching.
             </div>
             <div class="item">
                 <span class="tag">Cloud SQL Replicas</span> <span class="label">Performance:</span> <b>Asynchronous</b> replication. Used to offload heavy read traffic or for cross-region Disaster Recovery (requires manual promotion).
             </div>
             <div class="item">
-                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent relational database. Handles global HA automatically. Minimum node requirements apply (expensive).
+                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent. Now supports <b>Spanner Graph</b> (SQL + GQL query integration). Fine-grained sizing via Processing Units (PUs) removes strict 1-node minimum constraints for smaller apps.
             </div>
-        </div>
-
+            
         <div class="card analytics">
             <h2><i class="fas fa-chart-line"></i> BigQuery & Analytics</h2>
             <div class="item">
