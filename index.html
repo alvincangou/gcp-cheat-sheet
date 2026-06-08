@@ -103,7 +103,7 @@
         .dr { border-left-color: #607d8b; }
         .lb { border-left-color: #3f51b5; }
         .analytics { border-left-color: #00acc1; } 
-        .deployment { border-left-color: #e91e63; } /* Pink color for Deployments */
+        .deployment { border-left-color: #e91e63; }
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
@@ -129,7 +129,7 @@
                 <span class="tag">IAP</span> <span class="label">Identity Aware Proxy:</span> Access VMs/Web Apps via SSH/HTTPS without public IPs.
             </div>
             <div class="item">
-                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use <b>Predefined Roles</b> by default. Use <b>Custom Roles</b> only if predefined roles are too broad (avoids admin overhead).
+                <span class="tag">IAM</span> <span class="label">Least Privilege:</span> Use <b>Predefined Roles</b> by default. Use <b>Custom Roles</b> only if predefined roles are too broad.
             </div>
             <div class="highlight" style="font-size: 0.9em;">
                 <b>IAM Hierarchy:</b> Organization > Folders > Projects > Resources. (Permissions inherit downward).
@@ -144,23 +144,34 @@
                 <span class="tag">Binary Auth</span> <span class="label">GKE Security:</span> Ensures only signed/trusted images are deployed to K8s.
             </div>
             <div class="item">
-                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed - Default).
+                <span class="tag">Encryption</span> <span class="label">Keys:</span> <b>CMEK</b> (Customer Managed), <b>CSEK</b> (Customer Supplied), <b>GMEK</b> (Google Managed).
             </div>
             <div class="item">
-                <span class="tag">Workload Identity</span> <span class="label">Federation:</span> The secure way for AWS/Azure apps or GKE Pods to access GCP services. <b>Keyless authentication</b> (avoids downloading/rotating long-lived JSON service account keys).
+                <span class="tag">Workload Identity</span> <span class="label">Federation:</span> The secure way for AWS/Azure apps or GKE Pods to access GCP. <b>Keyless authentication</b>.
             </div>
         </div>
 
         <div class="card messaging">
-            <h2><i class="fas fa-exchange-alt"></i> Messaging & Data Logic</h2>
+            <h2><i class="fas fa-random"></i> Data Pipelines & Messaging</h2>
             <table>
                 <tr><th>Service</th><th>Context</th><th>Action</th></tr>
                 <tr><td><b>Pub/Sub</b></td><td>Async Ingest</td><td>Fire & Forget (Decouple)</td></tr>
                 <tr><td><b>Cloud Tasks</b></td><td>Orchestration</td><td>Rate-limit, Schedule, Retries</td></tr>
-                <tr><td><b>Dataflow</b></td><td>ETL / Stream</td><td>Transform, Enrich, Windowing</td></tr>
+                <tr><td><b>Datastream</b></td><td>CDC Mover</td><td>Log-based Replication</td></tr>
+                <tr><td><b>Dataflow</b></td><td>ETL / Stream</td><td>Transform, Join, Cleanse</td></tr>
             </table>
+            
+            <div class="item" style="margin-top: 15px;">
+                <span class="tag">Datastream</span> <span class="label">Serverless CDC:</span> Reads DB logs (Oracle Redo, MySQL Binlogs) with zero performance impact to stream changes to BQ/GCS. Google's cloud-native alternative to <b>Oracle GoldenGate</b>. Handles schema drift automatically.
+            </div>
+            <div class="item">
+                <span class="tag">Dataflow</span> <span class="label">The Transformer:</span> Apache Beam managed service. Unmatched power for heavy-duty batch/stream transformations. Do not use for simple CDC (requires custom query polling).
+            </div>
             <div class="highlight" style="font-size: 0.9em;">
-                <b>Decision Tip:</b> "Group data by time window" or "Unified Batch/Stream" = <b>Dataflow</b>. "Buffer messages" = <b>Pub/Sub</b>.
+                <b>The Integration Trio:</b><br>
+                1. <b>Datastream</b> (The Mover) mirrors operational DBs securely.<br>
+                2. <b>Dataflow</b> (The Transformer) picks up the mirrored data to clean/format it.<br>
+                3. <b>Federated Queries</b> (The Lens) lets BQ query external DBs on-the-fly without moving data.
             </div>
         </div>
 
@@ -170,248 +181,175 @@
                 <span class="tag">VPC</span> <span class="label">Global/Regional:</span> VPCs are Global, Subnets are <b>Regional</b>.
             </div>
             <div class="item">
-                <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages a single network for multiple service projects, <b>preventing IP conflicts at the source</b> through centralized administration.
+                <span class="tag">Shared VPC</span> <span class="label">Centralization:</span> One host project manages a single network for multiple service projects, <b>preventing IP conflicts</b>.
             </div>
             <div class="item">
-                <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connects two distinct VPCs directly (non-transitive). <b>Strictly impossible if there are overlapping (conflicting) CIDR ranges</b>.
+                <span class="tag">VPC Peering</span> <span class="label">Low Latency:</span> Connects two distinct VPCs directly. <b>Strictly impossible with overlapping CIDR ranges</b>.
             </div>
             <div class="item">
-                <span class="tag">PSC (Private Service Connect)</span> <span class="label">Network Abstraction:</span> Connects services (Google APIs, 3rd-party SaaS, or internal apps) via a single private IP endpoint <b>without network interconnection</b>, completely bypassing IP conflict issues.
+                <span class="tag">PSC</span> <span class="label">Private Service Connect:</span> Connects services via a single private IP endpoint <b>without network interconnection</b> (bypasses IP conflict issues).
             </div>
             <div class="item">
-                <span class="tag">Direct VPC Egress</span> <span class="label">Serverless Native:</span> Routes Cloud Run/Functions traffic directly to VPC <b>without connector VMs</b> (lower latency, higher throughput, scales instantly).
+                <span class="tag">Direct VPC Egress</span> <span class="label">Serverless Native:</span> Routes Cloud Run/Functions traffic directly to VPC <b>without connector VMs</b>.
             </div>
             <div class="item">
-                <span class="tag">VPC Connector</span> <span class="label">Serverless Legacy:</span> Uses <b>managed underlying VMs</b> to bridge serverless to VPC (has throughput caps, minimum cost, slower scaling).
+                <span class="tag">Interconnect</span> <span class="label">Hybrid:</span> <b>Dedicated</b> (Physical line), <b>Partner</b> (via ISP), <b>Cloud VPN</b> (IPsec).
             </div>
             <div class="item">
-                <span class="tag">Interconnect</span> <span class="label">Hybrid:</span> <b>Dedicated</b> (Physical line), <b>Partner</b> (via ISP), <b>Cloud VPN</b> (IPsec over public web).
+                <span class="tag">NCC</span> <span class="label">Connectivity Center:</span> Centralized <b>hub-and-spoke</b> transit network manager.
             </div>
             <div class="item">
-                <span class="tag">NCC</span> <span class="label">Connectivity Center:</span> Centralized <b>hub-and-spoke</b> transit network manager. Seamlessly connects VPCs, Cloud VPN, Interconnect, and 3rd-party SD-WAN/Router Appliances.
-            </div>
-            <div class="item">
-                <span class="tag">Cloud NAT</span> <span class="label">Static IP Egress:</span> Pair with Direct VPC Egress to give serverless workloads a <b>predictable, static outbound public IP</b>.
-            </div>
-            <div class="item">
-                <span class="tag">Cloud DNS</span> <span class="label">Resolution:</span> Use 169.254.169.254 for metadata/internal resolution.
+                <span class="tag">Cloud NAT</span> <span class="label">Static IP Egress:</span> Pair with Direct VPC Egress to give serverless a <b>predictable static outbound IP</b>.
             </div>
         </div>
 
         <div class="card lb">
             <h2><i class="fas fa-weight-hanging"></i> Load Balancing</h2>
             <div class="item">
-                <span class="tag">External App LB</span> <span class="label">L7 (Global/Regional):</span> <b>Proxy-based</b>. Handles HTTP/S. Integrates with <b>Cloud Armor, Cloud CDN, and IAP</b>. Features URL-based routing and SSL termination.
+                <span class="tag">External App LB</span> <span class="label">L7 (Global/Regional):</span> <b>Proxy-based</b>. HTTP/S. Integrates with Cloud Armor, Cloud CDN, and IAP.
             </div>
             <div class="item">
-                <span class="tag">Internal App LB</span> <span class="label">L7 (Regional):</span> Envoy <b>proxy-based</b>. Internal private routing, traffic splitting (canary deploys), and HTTP header manipulation for private microservices.
+                <span class="tag">Internal App LB</span> <span class="label">L7 (Regional):</span> Envoy proxy-based. Internal private routing, traffic splitting (canary).
             </div>
             <div class="item">
-                <span class="tag">External Net LB</span> <span class="label">L4 (Regional):</span> <b>Passthrough</b> by default (terminates on VMs, <b>preserves Client IP</b>). Used for raw TCP/UDP/ESP. Can also be configured as a Proxy (TCP/SSL Proxy).
+                <span class="tag">External Net LB</span> <span class="label">L4 (Regional):</span> <b>Passthrough</b> by default (terminates on VMs, <b>preserves Client IP</b>). Raw TCP/UDP.
             </div>
             <div class="item">
-                <span class="tag">Internal Net LB</span> <span class="label">L4 (Regional):</span> <b>Passthrough</b>, ultra-low latency internal routing. Crucial exam feature: Supports <b>Global Access</b> (allows client VMs from *any* GCP region to access the internal LB).
+                <span class="tag">Internal Net LB</span> <span class="label">L4 (Regional):</span> <b>Passthrough</b>. Exam feature: Supports <b>Global Access</b> (client VMs from *any* GCP region can access the internal LB).
             </div>
         </div>
 
         <div class="card compute">
             <h2><i class="fas fa-server"></i> Compute & Modernization</h2>
             <div class="item">
-                <span class="tag">App Engine Standard</span> <span class="label">PaaS:</span> Scales to zero instantly, bills by milliseconds. Restricted to specific language runtimes. Ideal for sudden traffic spikes.
+                <span class="tag">App Engine Standard</span> <span class="label">PaaS:</span> Scales to zero instantly. Restricted to specific language runtimes.
             </div>
             <div class="item">
-                <span class="tag">App Engine Flex</span> <span class="label">Containers:</span> Uses underlying Compute Engine VMs. Slower to scale, <b>does not scale to zero</b>. Allows custom Dockerfiles and background threads.
+                <span class="tag">App Engine Flex</span> <span class="label">Containers:</span> Slower to scale, <b>does not scale to zero</b>. Custom Dockerfiles.
             </div>
             <div class="item">
-                <span class="tag">Cloud Run</span> <span class="label">Serverless CaaS:</span> Run any stateless HTTP container. Scales to zero. Supports concurrent requests per instance (cheaper than Cloud Functions for high traffic).
+                <span class="tag">Cloud Run</span> <span class="label">Serverless CaaS:</span> Run stateless HTTP containers. Scales to zero. Supports concurrent requests.
             </div>
             <div class="item">
-                <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Use for legacy apps, custom kernels, strict licensing (BYOL), or specialized hardware (GPUs/TPUs).
-            </div>
-            <div class="item">
-                <span class="tag">Istio</span> <span class="label">Service Mesh:</span> Traffic management, security, and observability for microservices.
+                <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Legacy apps, custom kernels, BYOL, or GPUs/TPUs.
             </div>
             <div class="item">
                 <span class="tag">Eventarc</span> <span class="label">Event-Driven:</span> Trigger Cloud Run/Functions from 90+ GCP sources (GCS, PubSub).
             </div>
             <div class="item">
-                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.Best for teams that want K8s without infrastructure overhead.
+                <span class="tag">GKE Autopilot</span> <span class="label">Serverless K8s:</span> Google manages nodes; you pay for Pods used.
             </div>
             <div class="item">
-                <span class="tag">HPA / CA</span> <span class="label">Scaling:</span> <b>HPA</b> (more pods), <b>CA</b> (more nodes), <b>VPA</b> (bigger pods).
+                <span class="tag">DaemonSet</span> <span class="label">K8s Nodes:</span> Ensures a specific Pod runs on <i>all</i> (or matching) Nodes (e.g., logging agents).
             </div>
             <div class="item">
-                <span class="tag">K8s Namespace</span> <span class="label">Isolation:</span> Logical environments; use <b>ResourceQuotas</b> to limit CPU/RAM per team.
-            </div>
-            <div class="item">
-                <span class="tag">DaemonSet</span> <span class="label">K8s Nodes:</span> Ensures a specific Pod runs on <i>all</i> (or matching) Nodes. Useful for logging or monitoring agents.
-            </div>
-            <div class="item">
-                <span class="tag">ReplicaSet</span> <span class="label">K8s Pods:</span> Maintains a stable set of replica Pods running at any given time (usually managed by Deployments).
-            </div>
-            <div class="item">
-                <span class="tag">Migrate to Compute Engine</span> <span class="label">Lift & Shift:</span> Migrates physical/virtual VMs (AWS, Azure, VMware) directly to GCE via data streaming with minimal downtime.
-            </div>
-            <div class="item">
-                <span class="tag">Migrate to Containers</span> <span class="label">Modernization:</span> Automatically extracts application workloads from legacy VMs and converts them into container images for GKE or Cloud Run.
+                <span class="tag">Migrate to Compute Engine</span> <span class="label">Lift & Shift:</span> Migrates VMs directly to GCE via data streaming with minimal downtime.
             </div>
             <div class="highlight" style="font-size: 0.9em;">
-                <b>Exam Trap:</b> If the prompt mentions "unpredictable traffic" + "cost optimization", look for <b>App Engine Standard</b> or <b>Cloud Run</b> (because they scale to 0).
+                <b>Exam Trap:</b> Unpredictable traffic + cost optimization = <b>App Engine Standard</b> or <b>Cloud Run</b> (they scale to 0).
             </div>
         </div>
+        
         <div class="card hybrid">
             <h2><i class="fas fa-cloud"></i> Hybrid & Multi-Cloud</h2>
             <div class="item">
-                <span class="tag">Anthos / GKE Ent.</span> <span class="label">Unified Platform:</span> Manage K8s clusters across GCP, AWS, Azure, and on-prem (Bare Metal/VMware) from a single pane of glass.
+                <span class="tag">Anthos / GKE Ent.</span> <span class="label">Unified Platform:</span> Manage K8s clusters across GCP, AWS, Azure, and on-prem.
             </div>
             <div class="item">
-                <span class="tag">Cross-Cloud Interconnect</span> <span class="label">Networking:</span> A direct, high-bandwidth, dedicated physical connection between GCP and other cloud providers (AWS, Azure, OCI, Alibaba).
+                <span class="tag">Cross-Cloud Interconnect</span> <span class="label">Networking:</span> Dedicated physical connection between GCP and AWS, Azure, OCI.
             </div>
             <div class="item">
-                <span class="tag">ACM</span> <span class="label">Anthos Config Mgmt:</span> GitOps approach. Sync security policies, RBAC, and cluster configs across your entire multi-cloud fleet automatically.
+                <span class="tag">ACM</span> <span class="label">Anthos Config Mgmt:</span> GitOps approach. Sync security, RBAC, and configs across fleets automatically.
             </div>
             <div class="item">
-                <span class="tag">Connect Gateway</span> <span class="label">Secure Access:</span> Securely interact with registered external clusters via Google Cloud ID, bypassing the need for inbound firewall rules or public IPs.
-            </div>
-            <div class="item">
-                <span class="tag">Cloud Service Mesh</span> <span class="label">Traffic/Security:</span> Managed Istio. Provides mTLS encryption, traffic splitting, and unified telemetry across clusters spanning different clouds.
-            </div>
-            <div class="item">
-                <span class="tag">GDC (Distributed Cloud)</span> <span class="label">Edge & Sovereign:</span> Extends GCP hardware and services to on-prem, edge, or completely <b>air-gapped (disconnected) environments</b> to meet strict data sovereignty or local processing needs.
+                <span class="tag">GDC</span> <span class="label">Distributed Cloud:</span> Extends GCP hardware/services to edge or completely <b>air-gapped environments</b>.
             </div>
         </div>
 
         <div class="card storage">
             <h2><i class="fas fa-database"></i> Storage & Data</h2>
 
-            <div class="section-divider" style="margin: 10px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Object, File Storage & Caching</div>
-            
+            <div class="section-divider" style="margin: 10px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Object & Caching</div>
             <div class="item">
-                <span class="tag">GCSFUSE</span> <span class="label">File Mount:</span> Mount GCS buckets as local file systems on Linux.
+                <span class="tag">GCS Classes</span> <span class="label">Cost/Access:</span> <b>Standard</b> (Hot), <b>Nearline</b> (< 1/mo), <b>Coldline</b> (< 1/qtr), <b>Archive</b> (< 1/yr).
             </div>
             <div class="item">
-                <span class="tag">GCS Classes</span> <span class="label">Cost/Access:</span> 
-                <ul>
-                    <li><b>Standard:</b> Hot data.</li>
-                    <li><b>Nearline:</b> Accessed &lt; 1/month (30 day min).</li>
-                    <li><b>Coldline:</b> Accessed &lt; 1/quarter (90 day min).</li>
-                    <li><b>Archive:</b> Accessed &lt; 1/year (365 day min).</li>
-                </ul>
-            </div>
-            <div class="item">
-                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis, Memcached, and <b>Valkey</b> (open-source alternative). Sub-millisecond latency for key-value caching.
+                <span class="tag">Memorystore</span> <span class="label">Caching:</span> Managed Redis, Memcached, and Valkey. Sub-millisecond latency.
             </div>
 
-            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Operational & NoSQL Databases</div>
-
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Operational & NoSQL</div>
             <div class="item">
-                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across two zones in the <i>same</i> region. Standby instance for auto-failover (Zero data loss). <i>Enterprise Plus</i> tier adds sub-second maintenance downtime and read data caching.
+                <span class="tag">Cloud SQL HA</span> <span class="label">Reliability:</span> <b>Synchronous</b> replication across 2 zones. Auto-failover (Zero data loss).
             </div>
             <div class="item">
-                <span class="tag">Cloud SQL Replicas</span> <span class="label">Performance:</span> <b>Asynchronous</b> replication. Used to offload heavy read traffic or for cross-region Disaster Recovery (requires manual promotion).
+                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent. Handles global HA automatically.
             </div>
             <div class="item">
-                <span class="tag">Spanner</span> <span class="label">Global Relational:</span> Horizontally scalable, strongly consistent relational database. Handles global HA automatically. Supports <b>Spanner Graph</b> (SQL + GQL query integration). Fine-grained sizing via Processing Units (PUs) removes strict 1-node minimum constraints.
+                <span class="tag">Bigtable</span> <span class="label">NoSQL Key-Value:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema. 
             </div>
             <div class="item">
-                <span class="tag">Bigtable</span> <span class="label">NoSQL Key-Value:</span> Petabyte-scale, high throughput (IoT, AdTech). Flat schema. Supports native <b>Vector Search</b> for real-time GenAI grounding.
-            </div>
-            <div class="item">
-                <span class="tag">Firestore</span> <span class="label">NoSQL Doc:</span> Serverless, transactional, real-time sync. Ideal for Mobile/Web apps. Supports native <b>Vector Search</b> (embeddings/RAG workloads).
-            </div>
-            <div class="highlight" style="font-size: 0.9em;">
-                <b>Vs Bigtable:</b> Use <b>Firestore</b> for hierarchical docs/apps (ACID, real-time sync, mobile, user profile vector store). Use <b>Bigtable</b> for massive ingest/flat time-series (IoT/Analytics, high-volume operational vectors).
+                <span class="tag">Firestore</span> <span class="label">NoSQL Doc:</span> Serverless, transactional, real-time sync. Ideal for Mobile/Web apps.
             </div>
 
-            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Governance, Security & Migration</div>
-
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Governance & Migration</div>
             <div class="item">
-                <span class="tag">Knowledge Catalog</span> <span class="label">Governance:</span> (Formerly Dataplex Universal Catalog). Gemini-powered active AI context graph to discover, secure, and monitor data quality/lineage across GCS and BigQuery. Serves as an enterprise truth engine for AI agents.
-            </div>
-            <div class="highlight" style="font-size: 0.9em;">
-                <b>Vs VPC-SC:</b> <b>Knowledge Catalog / Dataplex</b> governs metadata discovery, data quality, and lineage (L7). <b>VPC Service Controls</b> creates a strict cryptographic network perimeter to prevent data exfiltration (L4).
+                <span class="tag">Knowledge Catalog</span> <span class="label">Governance:</span> (Dataplex) AI context graph to discover, secure, and monitor data lineage.
             </div>
             <div class="item">
-                <span class="tag">DMS</span> <span class="label">DB Migration:</span> Serverless migration for MySQL, PostgreSQL, SQL Server (Cloud SQL/AlloyDB).
+                <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, or HTTP to GCS.
             </div>
             <div class="item">
-                <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, file systems, or HTTP to GCS. Scalable online migration.
-            </div>
-            <div class="item">
-                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (&gt;10TB to hundreds of TBs).
+                <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (>10TB).
             </div>
         </div> 
 
         <div class="card analytics">
             <h2><i class="fas fa-chart-line"></i> BigQuery & Analytics</h2>
             
-            <div class="section-divider" style="margin: 10px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Architecture & Optimization</div>
-            
+            <div class="section-divider" style="margin: 10px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Architecture & Optimization</div>
             <div class="item">
-                <span class="tag">Serverless DW</span> <span class="label">Architecture:</span> Decoupled storage (Colossus) & compute (Dremel). SQL Interface.
+                <span class="tag">Optimization</span> <span class="label">Cost/Speed:</span> <b>Partitioning</b> (Divide by Date/Int - scans less), <b>Clustering</b> (Sort within partitions - faster filters).
             </div>
             <div class="item">
-                <span class="tag">Optimization</span> <span class="label">Cost/Speed:</span>
-                <ul>
-                    <li><b>Partitioning:</b> Divide table by Date/Time/Int (Scans less data).</li>
-                    <li><b>Clustering:</b> Sort data within partitions (Faster filters).</li>
-                </ul>
-            </div>
-            <div class="item">
-                <span class="tag">Security</span> <span class="label">Views:</span> Use <b>Authorized Views</b> to share query results without granting access to underlying raw tables.
+                <span class="tag">Security</span> <span class="label">Views:</span> Use <b>Authorized Views</b> to share results without granting raw table access.
             </div>
 
-            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Data Lakehouse & Ecosystem</div>
-
-            <div class="highlight" style="font-size: 0.9em;">
-                <b>The BigQuery Quadrant:</b> 
-                1. <b>Federated:</b> Query operational DBs (Cloud SQL) & external files. 
-                2. <b>Cross-Cloud:</b> (Formerly BQ Omni) Query AWS/Azure files. 
-                3. <b>Lakehouse for Iceberg:</b> (Formerly BigLake) Query GCS files like tables. 
-                4. <b>Sharing:</b> (Formerly Analytics Hub) Share internal BQ data securely.
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Data Lakehouse & Ecosystem</div>
+            <div class="item">
+                <span class="tag">Federated Queries</span> <span class="label">The Lens:</span> Query operational DBs (Cloud SQL, Spanner) in real time <b>without moving data</b> via `EXTERNAL_QUERY()`. Excellent for ad-hoc joins, but <i>performance is bottlenecked by the source DB</i>.
             </div>
             <div class="item">
-                <span class="tag">Federated Queries</span> <span class="label">Real-time Hybrid & External:</span> Query operational databases (Cloud SQL, Spanner, AlloyDB) or data residing directly in GCS and Bigtable in real time <b>without moving or copying data</b>. Uses <code>EXTERNAL_QUERY()</code> or <b>External Datasets</b> mapping.
+                <span class="tag">Cross-Cloud Lakehouse</span> <span class="label">Omni:</span> Execute distributed queries directly on AWS S3 or Azure Blob storage.
             </div>
             <div class="item">
-                <span class="tag">Cross-Cloud Lakehouse</span> <span class="label">Multi-Cloud Analytics:</span> (Formerly BigQuery Omni). Execute distributed BigQuery queries directly on AWS S3 or Azure Blob storage using standard SQL <b>without moving or copying the data</b> to GCP.
+                <span class="tag">Lakehouse for Iceberg</span> <span class="label">BigLake:</span> Decouples compute and storage using open formats (Iceberg/Parquet) on GCS.
             </div>
             <div class="item">
-                <span class="tag">Lakehouse for Apache Iceberg</span> <span class="label">Open Storage Engine:</span> (Formerly BigLake). Decouples compute and storage using open formats (Iceberg/Parquet) on GCS with fine-grained access control.
-            </div>
-            <div class="item">
-                <span class="tag">BigQuery Sharing</span> <span class="label">Data Exchange:</span> (Formerly Analytics Hub). Secure platform to share BigQuery datasets, ML models, and AI assets inside or outside the organization without data duplication.
-            </div>
-            <div class="highlight" style="font-size: 0.9em;">
-                <b>Publisher-Subscriber Model:</b> Publishers create <b>Exchanges</b> and <b>Listings</b>. Subscribers access them via read-only <b>Linked Datasets</b>. Subscriber pays only for query compute; zero storage copy costs.
+                <span class="tag">BigQuery Sharing</span> <span class="label">Analytics Hub:</span> Securely share datasets (Publisher/Subscriber model). Zero storage copy costs.
             </div>
 
-            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Advanced Analytics & Performance</div>
-
+            <div class="section-divider" style="margin: 15px 0 5px 0; font-weight: bold; color: #4285F4; border-bottom: 1px solid #eee; padding-bottom: 3px; font-size: 0.85em; text-transform: uppercase;">Advanced Analytics</div>
             <div class="item">
-                <span class="tag">Spanner Columnar Engine</span> <span class="label">Performance:</span> Automatically accelerates federated queries and analytical scans up to 200x on live operational Spanner data using vectorized execution.
+                <span class="tag">Spanner Columnar Engine</span> <span class="label">Performance:</span> Accelerates federated queries up to 200x on live operational Spanner data.
             </div>
             <div class="item">
-                <span class="tag">BQML</span> <span class="label">ML in SQL:</span> Build models (Linear Reg, K-Means) directly in BigQuery using standard SQL.
+                <span class="tag">BQML</span> <span class="label">ML in SQL:</span> Build models directly in BigQuery using standard SQL.
             </div>
         </div>
 
         <div class="card deployment">
             <h2><i class="fas fa-rocket"></i> Deployments & Rollouts</h2>
             <div class="item">
-                <span class="tag">Rolling Update</span> <span class="label">Gradual:</span> Slowly replaces old instances with new ones. Default K8s strategy. Zero downtime, but slower rollback.
+                <span class="tag">Rolling Update</span> <span class="label">Gradual:</span> Slowly replaces old instances. Zero downtime, slower rollback.
             </div>
             <div class="item">
-                <span class="tag">Canary</span> <span class="label">Risk Mitigation:</span> Route a small percentage of live traffic (e.g., 5%) to the new version to test stability before full rollout.
+                <span class="tag">Canary</span> <span class="label">Risk Mitigation:</span> Route a small percentage (e.g., 5%) to new version to test stability.
             </div>
             <div class="item">
-                <span class="tag">Blue/Green</span> <span class="label">Instant Switch:</span> Deploy the new version (Green) alongside the old (Blue). Switch traffic 100% via Load Balancer. Instant rollback.
+                <span class="tag">Blue/Green</span> <span class="label">Instant Switch:</span> Deploy new alongside old. Switch 100% via Load Balancer. Instant rollback.
             </div>
             <div class="item">
-                <span class="tag">A/B Testing</span> <span class="label">Business Value:</span> Route specific users to a new version based on HTTP headers/cookies to measure conversion or user behavior.
-            </div>
-            <div class="item">
-                <span class="tag">Shadow</span> <span class="label">Safe Testing:</span> Mirror live production traffic to the new version without affecting end users to test scale and errors.
+                <span class="tag">A/B Testing</span> <span class="label">Business Value:</span> Route based on headers/cookies to measure conversion.
             </div>
         </div>
         
@@ -419,7 +357,7 @@
             <h2><i class="fas fa-biohazard"></i> Disaster Recovery (DR)</h2>
             <div class="item"><span class="label">RTO:</span> Time to recover. <span class="label">RPO:</span> Acceptable data loss.</div>
             <div class="item"><b>Cold DR:</b> High RTO. Restore from backups. Cheapest.</div>
-            <div class="item"><b>Warm DR:</b> (Pilot Light) Database is sync'd, App is scaled to zero.</div>
+            <div class="item"><b>Warm DR:</b> (Pilot Light) DB is sync'd, App scaled to zero.</div>
             <div class="item"><b>Hot DR:</b> Active-Active multi-region. Zero RTO/RPO. Expensive.</div>
         </div>
 
@@ -430,17 +368,17 @@
                 - Need SQL + Global Scaling? ⮕ <b>Spanner</b><br>
                 - Need SQL + Vertical Scaling? ⮕ <b>Cloud SQL</b><br>
                 - Need Web Scale NoSQL? ⮕ <b>Firestore</b><br>
-                - Need Hadoop/Spark? ⮕ <b>Dataproc</b><br>
                 - Need Data Warehouse/Analytics? ⮕ <b>BigQuery</b><br>
-                - Need Hybrid Hub-and-Spoke / Transit Routing? ⮕ <b>NCC</b>
+                - Need Hybrid Hub-and-Spoke Routing? ⮕ <b>NCC</b>
             </div>
             <div class="item" style="margin-top:15px;">
-                <span class="tag">Ops Suite</span> <span class="label">Monitoring:</span> Cloud Logging (errors), Cloud Monitoring (metrics), Cloud Trace (latency), Cloud Debugger.
+                <span class="tag">Ops Suite</span> <span class="label">Monitoring:</span> Cloud Logging (errors), Cloud Monitoring (metrics), Cloud Trace (latency).
             </div>
             <div class="highlight" style="background-color: #ffebee; border-color: #ef5350;">
                 <b><i class="fas fa-exclamation-triangle"></i> Exam Traps:</b><br>
-                - <b>Transfer Appliance:</b> Use for physical offline data (>10TB).<br>
-                - <b>Storage Transfer Svc:</b> Use for Cloud-to-Cloud (S3->GCS).<br>
+                - <b>Datastream vs Dataflow:</b> Don't build custom DB polling scripts in Dataflow. Use Datastream for zero-impact, log-based CDC replication.<br>
+                - <b>Transfer Appliance:</b> Physical offline data (>10TB).<br>
+                - <b>Storage Transfer Svc:</b> Cloud-to-Cloud (S3->GCS).<br>
                 - <b>Org Policy:</b> Limits <i>what</i> resources can do. <b>IAM</b> limits <i>who</i>.
             </div>
         </div>
