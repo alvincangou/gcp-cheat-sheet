@@ -240,6 +240,9 @@
                 <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Use for legacy apps, custom kernels, strict licensing (BYOL), or specialized hardware (GPUs/TPUs).
             </div>
             <div class="item">
+                <span class="tag">GCE Disks</span> <span class="label">Local SSD vs PD:</span> <b>Local SSDs</b> are ephemeral (physically attached, highest IOPS, data is lost if VM stops). <b>Persistent Disks (PD)</b> are durable network storage (survive VM stops, lower IOPS).
+            </div>
+            <div class="item">
                 <span class="tag">Istio</span> <span class="label">Service Mesh:</span> Traffic management, security, and observability for microservices.
             </div>
             <div class="item">
@@ -349,6 +352,9 @@
                 <span class="tag">Storage Transfer Svc</span> <span class="label">Cloud-to-Cloud:</span> Automate transfers from AWS S3, Azure Blob, file systems, or HTTP to GCS. Scalable online migration.
             </div>
             <div class="item">
+                <span class="tag">Storage Transfer Svc</span> <span class="label">On-Prem Agent:</span> Uses a local software agent to securely migrate massive file archives (billions of files) from on-prem data centers to GCS over an Interconnect or VPN.
+            </div>
+            <div class="item">
                 <span class="tag">Transfer Appliance</span> <span class="label">Offline:</span> Hardware server for high-volume physical data transfer (&gt;10TB to hundreds of TBs).
             </div>
         </div> 
@@ -446,7 +452,7 @@
                 - Need Hybrid Hub-and-Spoke / Transit Routing? ⮕ <b>NCC</b>
             </div>
             <div class="item" style="margin-top:15px;">
-                <span class="tag">Ops Suite</span> <span class="label">Monitoring:</span> Cloud Logging (errors), Cloud Monitoring (metrics), Cloud Trace (latency), Cloud Debugger.
+                <span class="tag">Ops Suite</span> <span class="label">Observability:</span> <b>Cloud Logging</b> (logs), <b>Cloud Monitoring</b> (metrics/dashboards), <b>Cloud Trace</b> (request latency), <b>Error Reporting</b> (aggregates app crashes), and <b>Cloud Profiler</b> (analyzes CPU/RAM performance in production).
             </div>
             <div class="highlight" style="background-color: #ffebee; border-color: #ef5350;">
                 <b><i class="fas fa-exclamation-triangle"></i> Exam Traps:</b><br>
