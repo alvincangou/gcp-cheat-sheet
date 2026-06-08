@@ -152,15 +152,26 @@
         </div>
 
         <div class="card messaging">
-            <h2><i class="fas fa-exchange-alt"></i> Messaging & Data Logic</h2>
+            <h2><i class="fas fa-exchange-alt"></i> Data Pipelines & Messaging</h2>
             <table>
                 <tr><th>Service</th><th>Context</th><th>Action</th></tr>
                 <tr><td><b>Pub/Sub</b></td><td>Async Ingest</td><td>Fire & Forget (Decouple)</td></tr>
                 <tr><td><b>Cloud Tasks</b></td><td>Orchestration</td><td>Rate-limit, Schedule, Retries</td></tr>
-                <tr><td><b>Dataflow</b></td><td>ETL / Stream</td><td>Transform, Enrich, Windowing</td></tr>
+                <tr><td><b>Datastream</b></td><td>CDC Mover</td><td>Log-based Replication</td></tr>
+                <tr><td><b>Dataflow</b></td><td>ETL / Stream</td><td>Transform, Join, Cleanse</td></tr>
             </table>
+            <div class="item" style="margin-top: 15px;">
+                <span class="tag">Datastream</span> <span class="label">Serverless CDC:</span> Reads DB logs (Oracle Redo, MySQL Binlogs) with zero performance impact to stream changes to BQ/GCS. Google's cloud-native alternative to <b>Oracle GoldenGate</b>. Handles schema drift automatically.
+            </div>
+            <div class="item">
+                <span class="tag">Dataflow</span> <span class="label">The Transformer:</span> Apache Beam managed service. Unmatched power for heavy-duty batch/stream transformations. Do not use for simple CDC (requires custom query polling).
+            </div>
             <div class="highlight" style="font-size: 0.9em;">
                 <b>Decision Tip:</b> "Group data by time window" or "Unified Batch/Stream" = <b>Dataflow</b>. "Buffer messages" = <b>Pub/Sub</b>.
+                <b>The Integration Trio:</b><br>
+                1. <b>Datastream</b> (The Mover) mirrors operational DBs securely.<br>
+                2. <b>Dataflow</b> (The Transformer) picks up the mirrored data to clean/format it.<br>
+                3. <b>Federated Queries</b> (The Lens) lets BQ query external DBs on-the-fly without moving data.
             </div>
         </div>
 
