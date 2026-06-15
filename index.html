@@ -240,6 +240,9 @@
                 <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Use for legacy apps, custom kernels, strict licensing (BYOL), or specialized hardware (GPUs/TPUs).
             </div>
             <div class="item">
+    <span class="tag">Spot VMs</span> <span class="label">Termination Notice:</span> Provides a <b>30-second signal</b> (via ACPI/Metadata) before reclaiming the instance. Use a <b>Shutdown Script</b> to safely save state, flush logs, or drain connections.
+</div>
+            <div class="item">
                 <span class="tag">GCE Disks</span> <span class="label">Local SSD vs PD:</span> <b>Local SSDs</b> are ephemeral (physically attached, highest IOPS, data is lost if VM stops). <b>Persistent Disks (PD)</b> are durable network storage (survive VM stops, lower IOPS).
             </div>
             <div class="item">
