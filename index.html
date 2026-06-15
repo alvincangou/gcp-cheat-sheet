@@ -470,6 +470,175 @@
         </div>
 
     </div>
+    <section style="margin-top: 40px; background: white; border-radius: 8px; padding: 25px; box-shadow: var(--shadow); border-top: 6px solid var(--gcp-blue);">
+    <h2 style="font-size: 1.8em; color: var(--gcp-blue); border-bottom: 3px solid #eee; margin-top: 0;">
+        <i class="fas fa-paste"></i> Google Cloud PCA Case Studies (2026 Edition - V6.1)
+    </h2>
+    <p class="desc" style="margin-bottom: 25px;">Click on each case study to instantly expand the core architectures, requirements, and high-yield exam pitfalls.</p>
+
+    <style>
+        details { background: #fdfdfd; border: 1px solid #e0e0e0; border-radius: 6px; margin-bottom: 12px; transition: all 0.2s; }
+        details[open] { border-left: 5px solid var(--gcp-blue); background: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        details.cymbal[open] { border-left-color: var(--gcp-green); }
+        details.ehr[open] { border-left-color: var(--gcp-red); }
+        details.knight[open] { border-left-color: var(--gcp-yellow); }
+        summary { padding: 14px; font-weight: bold; cursor: pointer; color: var(--text-dark); display: flex; align-items: center; font-size: 1.1em; outline: none; }
+        summary i { margin-right: 12px; font-size: 1.2em; width: 20px; text-align: center; }
+        .case-content { padding: 0 20px 20px 20px; }
+        .case-content h3 { font-size: 1.05em; color: #1a73e8; margin: 15px 0 5px 0; display: flex; align-items: center; }
+        .case-content h3 i { margin-right: 6px; font-size: 0.9em; }
+    </style>
+
+    <details class="altostrat">
+        <summary><i class="fas fa-photo-video" style="color: var(--gcp-blue);"></i> 1. Altostrat Media (Media & Generative AI)</summary>
+        <div class="case-content">
+            <p class="desc">A major media company modernizing content management and user engagement using Generative AI while managing growing storage costs and integrating legacy on-premises ingestion pipelines.</p>
+            
+            <h3><i class="fas fa-bullseye"></i> Key Requirements</h3>
+            <ul>
+                <li><b>Business:</b> Accelerate workflows across hybrid pipelines; 24/7 conversational commerce; optimize long-term storage costs for archival media assets; extract deep analytical trends/metadata from audio/video files.</li>
+                <li><b>Technical:</b> Unified containerized CI/CD framework across hybrid footprints; automated GenAI content workflows (tagging, text summaries); secure high-throughput path for massive on-prem ingestion.</li>
+            </ul>
+
+            <h3><i class="fas fa-network-wired"></i> Proposed Architectural Solution</h3>
+            <div class="item"><span class="tag">GKE Enterprise (Anthos)</span> Consistent on-prem/GCP container environments and unified GitOps configuration sync via code repos.</div>
+            <div class="item"><span class="tag">Vertex AI Gemini Models</span> Standardizes multimodal understanding to auto-summarize audio/video and extract rich semantic metadata fields.</div>
+            <div class="item"><span class="tag">Dialogflow CX + RAG</span> Powers 24/7 client conversational customer assistance via private internal vector groundings.</div>
+            <div class="item"><span class="tag">GCS Lifecycle Policies</span> Configures automated bucket tracking rules to offload raw clips from Standard ⮕ Nearline ⮕ Coldline/Archive.</div>
+            <div class="item"><span class="tag">Cloud Run Functions</span> Serves as low-overhead event-driven serverless executor triggered instantly upon new video storage landing events.</div>
+            <div class="item"><span class="tag">Security Core</span> <b>CMEK</b> via Cloud KMS for revocation control; <b>VPC Service Controls (VPC-SC)</b> to prevent asset data exfiltration.</div>
+
+            <div class="highlight" style="background-color: #ffebee; border-color: #ef5350; margin-top: 15px;">
+                <b><i class="fas fa-exclamation-triangle"></i> Exam Traps & Pitfalls:</b><br>
+                - <b>Storage Pitfall:</b> Moving active media directly to Coldline/Archive. <i>Trap fix:</i> Active media must remain in Standard/Nearline to protect from high egress access fees.<br>
+                - <b>Compute Pitfall:</b> Provisioning manual GCE VMs for transcoding pipelines. <i>Trap fix:</i> Introduces idle resource overhead; stick to millisecond-billed serverless Cloud Run Functions instead.<br>
+                - <b>Governance Pitfall:</b> Default Google-Managed Keys (GMEK) for highly confidential assets. <i>Trap fix:</i> Fails independent external audit rules; client-controlled <b>CMEK</b> is required.
+            </div>
+        </div>
+    </details>
+
+    <details class="cymbal">
+        <summary><i class="fas fa-shopping-bag" style="color: var(--gcp-green);"></i> 2. Cymbal Retail (E-Commerce & DB Modernization)</summary>
+        <div class="case-content">
+            <p class="desc">An expanding retail brand automating catalog enrichment, personalized customer search, and conversational commerce while modernizing a hybrid multi-database stack.</p>
+            
+            <h3><i class="fas fa-bullseye"></i> Key Requirements</h3>
+            <ul>
+                <li><b>Business:</b> Automate product data enrichment; elevate storefront search conversions; eliminate manual entry overhead; enforce supply chain code scanning before container deployments.</li>
+                <li><b>Technical:</b> Securely expose internal APIs to external supply chain networks; mask column-level customer PII from unauthorized analysts; low-latency ephemeral scratch space for custom AI model adjustments.</li>
+            </ul>
+
+            <h3><i class="fas fa-network-wired"></i> Proposed Architectural Solution</h3>
+            <div class="item"><span class="tag">Local SSDs (NVMe)</span> Physically attached high-IOPS storage slots to support fast, ephemeral scratch space for custom ML container runs.</div>
+            <div class="item"><span class="tag">Apigee + PSC</span> Publishes private endpoints securely to partners without setting up full-scale network route integrations or exposing public IPs.</div>
+            <div class="item"><span class="tag">Retail Search (Discovery AI)</span> Delivers native semantic retail intent engines for personalized customer discovery workflows.</div>
+            <div class="item"><span class="tag">Firestore</span> Serverless, horizontally scalable NoSQL document architecture that effortlessly replaces on-prem MongoDB instances.</div>
+            <div class="item"><span class="tag">Cloud SQL / AlloyDB</span> Fully managed drop-in replacements for transactional legacy relational instances (MySQL, MS SQL Server).</div>
+            <div class="item"><span class="tag">Supply Chain Sec</span> <b>Cloud Build</b> + <b>Artifact Registry</b> + <b>Binary Authorization</b> to cryptographically guarantee image security before production runs.</div>
+
+            <div class="highlight" style="background-color: #ffebee; border-color: #ef5350; margin-top: 15px;">
+                <b><i class="fas fa-exclamation-triangle"></i> Exam Traps & Pitfalls:</b><br>
+                - <b>Storage Pitfall:</b> Writing raw active ML scratch data directly to basic GCS network buckets. <i>Trap fix:</i> Introduces severe pipeline latency loops; physically attached <b>Local SSDs</b> must be used.<br>
+                - <b>Networking Pitfall:</b> Setting up standard VPC Peering connections for external partners. <i>Trap fix:</i> Exposes full networks and risks overlapping CIDR blocks; isolate interactions completely via <b>Apigee and Private Service Connect (PSC)</b>.
+            </div>
+        </div>
+    </details>
+
+    <details class="ehr">
+        <summary><i class="fas fa-heartbeat" style="color: var(--gcp-red);"></i> 3. EHR Healthcare (SaaS & High-Availability DR)</summary>
+        <div class="case-content">
+            <p class="desc">A critical medical software provider migrating legacy collocated environments to GCP while guaranteeing strict regulatory compliance, a 99.99% infrastructure availability SLA, and zero system downtime.</p>
+            
+            <h3><i class="fas fa-bullseye"></i> Key Requirements</h3>
+            <ul>
+                <li><b>Business:</b> Achieve a strict 99.99% architecture SLA; maintain complete HIPAA, HITECH, and HITRUST compliance; ensure a Recovery Time Objective (RTO) of under 30 minutes for core databases.</li>
+                <li><b>Technical:</b> Redundant network routing pipelines; eliminate local configuration drift globally via automated GitOps engines; mask patient clinical PHI out of downstream big-data targets.</li>
+            </ul>
+
+            <h3><i class="fas fa-network-wired"></i> Proposed Architectural Solution</h3>
+            <div class="item"><span class="tag">Dedicated Interconnect</span> Configured in an <b>Active-Active Multi-Metro</b> design structure to safely fulfill Google's 99.99% core connection SLA metrics.</div>
+            <div class="item"><span class="tag">GKE Ent. + Config Sync</span> Establishes continuous declarative GitOps configurations across clusters to completely bypass localized network configuration changes.</div>
+            <div class="item"><span class="tag">Cloud SQL for SQL Server</span> Deployed with cross-region asynchronous replicas ready for manual promotion scripts to achieve an RTO under 30 minutes.</div>
+            <div class="item"><span class="tag">Sensitive Data Protection</span> Automatically scans, identifies, and obscures Patient Health Information (PHI) logs via <b>Cloud DLP</b> rules before storage.</div>
+            <div class="item"><span class="tag">Vertex AI Private Tuning</span> Utilizes foundation parameters backed by <b>VPC Service Controls</b> perimeter definitions to protect patient info from public lookups.</div>
+
+            <div class="highlight" style="background-color: #ffebee; border-color: #ef5350; margin-top: 15px;">
+                <b><i class="fas fa-exclamation-triangle"></i> Exam Traps & Pitfalls:</b><br>
+                - <b>Network Pitfall:</b> Relying on standard High-Availability Cloud VPN tunnels for critical links. <i>Trap fix:</i> Cloud VPN operates over public transit nodes and maxes out at a 99.9% SLA, breaking the business requirement.<br>
+                - <b>DR Pitfall:</b> Shipping nightly flat database backups to standard GCS buckets. <i>Trap fix:</i> Restoring massive operational environments from scratch takes hours, failing the 30-minute RTO requirement; use active cross-region replicas.
+            </div>
+        </div>
+    </details>
+
+    <details class="knight">
+        <summary><i class="fas fa-car" style="color: var(--gcp-yellow);"></i> 4. KnightMotives Automotive (IoT & Global Consistency)</summary>
+        <div class="case-content">
+            <p class="desc">A vehicle manufacturer upgrading telemetry systems to support live vehicle telemetry tracking, global inventory sync, and secure data sharing ecosystems.</p>
+            
+            <h3><i class="fas fa-bullseye"></i> Key Requirements</h3>
+            <ul>
+                <li><b>Business:</b> Modernize unoptimized order flows with real-time inventory checks; securely share anonymous vehicle performance patterns with insurance partners; build a 100% cloud-based web ecosystem for dealers.</li>
+                <li><b>Technical:</b> Ingest and process high-frequency time-series logging feeds from millions of global vehicles; maintain absolute transactional ACID consistency globally to block duplicate VIN bookings.</li>
+            </ul>
+
+            <h3><i class="fas fa-network-wired"></i> Proposed Architectural Solution</h3>
+            <div class="item"><span class="tag">Cloud Bigtable</span> The standard choice for time-series stream data; horizontally processes millions of low-latency tracking writes.</div>
+            <div class="item"><span class="tag">Pub/Sub + Dataflow</span> Ingests vehicle messaging queues and applies structured streaming cleanup before cold warehouse data drops.</div>
+            <div class="item"><span class="tag">Cloud Spanner</span> Powers order configurations, leveraging internal TrueTime clocks to preserve global multi-region ACID consistency.</div>
+            <div class="item"><span class="tag">BigQuery Analytics Hub</span> Securely exposes clean data subsets directly to insurance companies via read-only Linked Datasets, bypassing data replication costs.</div>
+            <div class="item"><span class="tag">Cloud Run</span> Hosts web-based portal configurations that scale to zero, minimizing dealer overhead with zero hardware (CAPEX) requirements.</div>
+
+            <div class="highlight" style="background-color: #ffebee; border-color: #ef5350; margin-top: 15px;">
+                <b><i class="fas fa-exclamation-triangle"></i> Exam Traps & Pitfalls:</b><br>
+                - <b>Database Pitfall:</b> Dropping high-speed live engine telemetry directly into Cloud SQL relational setups. <i>Trap fix:</i> Relational write locks break completely under massive IoT scales; telemetry always belongs in **Cloud Bigtable**.<br>
+                - <b>Consistency Pitfall:</b> Deploying local regional databases with manual peering updates for inventory sync. <i>Trap fix:</i> Introduces replication lag that causes duplicate sales or double-bookings; **Cloud Spanner** is required for global ACID guarantees.
+            </div>
+        </div>
+    </details>
+
+    <h3 style="margin-top: 30px; color: var(--text-dark); font-size: 1.2em;"><i class="fas fa-table"></i> Case Study Quick-Reference Decision Matrix</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Scenario Requirement / Keyword</th>
+                <th>Correct GCP Architecture Choice</th>
+                <th>Common Exam "Trap" (Incorrect Alternative)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>99.99% Network Connection SLA</b></td>
+                <td>Multi-Metro Active-Active Dedicated Interconnect</td>
+                <td>Cloud VPN Tunnels / Single Local Interconnect Link</td>
+            </tr>
+            <tr>
+                <td><b>High-Velocity Telemetry / IoT Streams</b></td>
+                <td>Cloud Bigtable</td>
+                <td>Cloud SQL (MySQL or PostgreSQL instances)</td>
+            </tr>
+            <tr>
+                <td><b>Global ACID Transactional Inventory Sync</b></td>
+                <td>Cloud Spanner</td>
+                <td>Regional Cloud SQL clusters + Custom Sync Logic</td>
+            </tr>
+            <tr>
+                <td><b>Fast Temporary Scratch Storage for ML Run Tasks</b></td>
+                <td>Attached NVMe Local SSD arrays</td>
+                <td>Cloud Storage (GCS) Buckets / Managed Filestore links</td>
+            </tr>
+            <tr>
+                <td><b>Secure Third-Party Partnership API Hooks</b></td>
+                <td>Apigee Gateway + Private Service Connect (PSC)</td>
+                <td>Direct VPC Peering integrations / Wide Firewall paths</td>
+            </tr>
+            <tr>
+                <td><b>Anonymized Data Exchange & Monetization</b></td>
+                <td>BigQuery Analytics Hub (Linked Datasets)</td>
+                <td>Exporting raw CSV data logs directly to public GCS buckets</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 </div>
 
 </body>
