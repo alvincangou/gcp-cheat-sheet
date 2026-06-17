@@ -397,32 +397,32 @@
     4. <b>Sharing:</b> (Formerly Analytics Hub) Share internal BQ assets securely with zero data copying.
 </div>
 
-<div class="item" style="margin-bottom: 15px;">
-    <span class="tag" style="font-weight: bold; color: #1a73e8;">Federated Queries</span> 
-    <span class="label" style="font-weight: 500; color: #5f6368;">Real-time Hybrid & External:</span> 
+<div class="item" >
+    <span class="tag"">Federated Queries</span> 
+    <span class="label" ">Real-time Hybrid & External:</span> 
     Query operational databases (Cloud SQL, Spanner, AlloyDB) or data residing directly in GCS and Bigtable in real time <b>without moving or copying data</b>. Uses <code>EXTERNAL_QUERY()</code> or <b>External Datasets</b> mapping.
     <br><small style="color: #666;"><b>• Best For:</b> Low-volume, real-time ad-hoc operational reporting where data changes too fast for ETL.</small>
     <br><small style="color: #d93025;"><b>• Caveat:</b> Puts analytical query load directly on your production transactional database.</small>
 </div>
 
-<div class="item" style="margin-bottom: 15px;">
-    <span class="tag" style="font-weight: bold; color: #1a73e8;">Cross-Cloud Lakehouse</span> 
-    <span class="label" style="font-weight: 500; color: #5f6368;">Multi-Cloud Analytics:</span> 
+<div class="item" >
+    <span class="tag" >Cross-Cloud Lakehouse</span> 
+    <span class="label">Multi-Cloud Analytics:</span> 
     (Formerly BigQuery Omni). Execute distributed BigQuery queries directly on AWS S3 or Azure Blob storage using standard SQL <b>without moving or copying the data</b> to GCP.
     <br><small style="color: #666;"><b>• Best For:</b> Overcoming "data gravity" when moving multi-terabyte datasets across clouds is too slow or introduces massive egress costs.</small>
 </div>
 
-<div class="item" style="margin-bottom: 15px;">
-    <span class="tag" style="font-weight: bold; color: #1a73e8;">Lakehouse for Apache Iceberg</span> 
-    <span class="label" style="font-weight: 500; color: #5f6368;">Open Storage Engine:</span> 
+<div class="item">
+    <span class="tag">Lakehouse for Apache Iceberg</span> 
+    <span class="label">Open Storage Engine:</span> 
     (Formerly BigLake). Decouples BigQuery's compute engine from storage using open metadata and formats (Iceberg/Parquet/Avro) on GCS with fine-grained access control.
     <br><small style="color: #137333;"><b>• Architecture Note:</b> <u>Not a BigQuery alternative</u>, but a storage capability <i>of</i> BigQuery. BQ acts as the query engine executing over open-source table formats.</small>
     <br><small style="color: #666;"><b>• Best For:</b> Multi-engine environments (e.g., sharing the same files seamlessly with Spark or Trino) and strictly avoiding vendor lock-in. *Use Native BQ Storage if maximum query speed is your single priority.*</small>
 </div>
 
-<div class="item" style="margin-bottom: 15px;">
-    <span class="tag" style="font-weight: bold; color: #1a73e8;">BigQuery Sharing</span> 
-    <span class="label" style="font-weight: 500; color: #5f6368;">Data Exchange:</span> 
+<div class="item" ">
+    <span class="tag" >BigQuery Sharing</span> 
+    <span class="label">Data Exchange:</span> 
     (Formerly Analytics Hub). Secure platform to share BigQuery datasets, ML models, and AI assets inside or outside the organization without data duplication.
     <br><small style="color: #666;"><b>• Best For:</b> Data monetization, B2B data sharing, or cross-department analytics without managing complex ETL pipelines or access tokens.</small>
 </div>
