@@ -588,6 +588,7 @@
                 <b><i class="fas fa-exclamation-triangle"></i> Exam Traps & Pitfalls:</b><br>
                 - <b>Network Pitfall:</b> Relying on standard High-Availability Cloud VPN tunnels for critical links. <i>Trap fix:</i> Cloud VPN operates over public transit nodes and maxes out at a 99.9% SLA, breaking the business requirement.<br>
                 - <b>DR Pitfall:</b> Shipping nightly flat database backups to standard GCS buckets. <i>Trap fix:</i> Restoring massive operational environments from scratch takes hours, failing the 30-minute RTO requirement; use active cross-region replicas.
+                - <b>Encryption Pitfall:</b> Assuming CMEK is contractually mandatory for baseline HIPAA compliance. <i>Trap fix:</i> <b>GMEK is enough</b> under GCP's standard Business Associate Agreement (BAA). Only suggest CMEK if independent, external key-revocation control is explicitly specified.
             </div>
         </div>
     </details>
