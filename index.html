@@ -104,7 +104,7 @@
         .lb { border-left-color: #3f51b5; }
         .analytics { border-left-color: #00acc1; } 
         .deployment { border-left-color: #e91e63; } /* Pink color for Deployments */
-
+        .finops { border-left-color: #0f9d58; } /* Nouveau : Vert Émeraude pour la gestion financière */
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
         }
@@ -490,8 +490,28 @@
                 - <b>Org Policy:</b> Limits <i>what</i> resources can do. <b>IAM</b> limits <i>who</i>.
             </div>
         </div>
-
-    </div>
+<!-- FINOPS & COST OPTIMIZATION CARD -->
+        <div class="card finops">
+            <h2><i class="fas fa-coins"></i> FinOps & Cost Optimization</h2>
+            <div class="item">
+                <span class="tag">Budgets & Alerts</span> <span class="label">Proactive Visibility:</span> Threshold notifications (email, console) triggered when actual or forecasted spend reaches specific percentages (e.g., 50%, 90%, 100%). <i>Note:</i> Unlike quotas, budgets do not block resource utilization.
+            </div>
+            <div class="item">
+                <span class="tag">Resource Labels</span> <span class="label">Cost Granularity:</span> Critical for granularity. By labeling resources (e.g., `env:prod`, `team:data`), you can isolate and allocate costs by team or project in billing reports and BigQuery exports.
+            </div>
+            <div class="item">
+                <span class="tag">Automated Response</span> <span class="label">Pub/Sub + Cloud Functions:</span> Connect a budget alert to a Pub/Sub topic to trigger a Cloud Function for automated defensive actions (e.g., capping or disabling project billing to halt costs).
+            </div>
+            <div class="highlight" style="font-size: 0.9em;">
+                <b>Quotas as Financial Safeguards:</b>
+                <ul>
+                    <li><b>Prevention:</b> Block excessive resource consumption (like instances or API requests), protecting the organization against massive bills due to sudden traffic spikes or misconfigurations.</li>
+                    <li><b>Serverless (Cloud Run):</b> Configuring the <code>max-instances</code> parameter is an essential proactive mechanism to avoid runaway autoscaling and unexpected costs.</li>
+                    <li><b>GKE (Namespaces):</b> Using <code>ResourceQuotas</code> at the namespace level limits CPU and RAM consumption per team or project, ensuring fair distribution and cost center visibility.</li>
+                    <li><b>Capacity Planner:</b> Encourages historical consumption analysis to adjust quotas and reservations, avoiding costly over-provisioning while guaranteeing resource availability.</li>
+                </ul>
+            </div>
+        </div>
     <section style="margin-top: 40px; background: white; border-radius: 8px; padding: 25px; box-shadow: var(--shadow); border-top: 6px solid var(--gcp-blue);">
     <h2 style="font-size: 1.8em; color: var(--gcp-blue); border-bottom: 3px solid #eee; margin-top: 0;">
         <i class="fas fa-paste"></i> Google Cloud PCA Case Studies (2026 Edition - V6.1)
@@ -659,6 +679,22 @@
                 <td>BigQuery Analytics Hub (Linked Datasets)</td>
                 <td>Exporting raw CSV data logs directly to public GCS buckets</td>
             </tr>
+            <!-- FINOPS EXAM TRAPS -->
+                <tr>
+                    <td><b>Isolate/Track costs by team or environment</b></td>
+                    <td>Resource Labels + BigQuery Billing Export</td>
+                    <td>Network Tags (used strictly for network traffic routing/firewall rules, not for billing)</td>
+                </tr>
+                <tr>
+                    <td><b>Automatically disable billing upon critical cost overruns</b></td>
+                    <td>Budget Alert + Pub/Sub + Cloud Function trigger</td>
+                    <td>Resource Quotas (block raw service consumption but do not disable the project's billing link)</td>
+                </tr>
+                <tr>
+                    <td><b>Prevent runaway autoscaling costs (Cloud Run)</b></td>
+                    <td>Configure the <code>max-instances</code> parameter setting</td>
+                    <td>Relying on budget alerts (they provide notifications but do not stop active runtime scaling)</td>
+                </tr>
         </tbody>
     </table>
 </section>
