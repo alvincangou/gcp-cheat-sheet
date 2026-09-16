@@ -21,7 +21,7 @@ A comprehensive, single-page HTML reference guide for Google Cloud Platform (GCP
 | **Data Pipelines & Messaging** | Pub/Sub, Cloud Tasks, Datastream, Dataflow, CDC patterns |
 | **Networking & Connectivity** | VPC, Shared VPC, VPC Peering, PSC, Direct VPC Egress, Interconnect, NCC, Cloud NAT, Cloud DNS |
 | **Load Balancing** | External/Internal App LB (L7), External/Internal Net LB (L4), Global Access |
-| **Compute & Modernization** | App Engine, Cloud Run, GCE, Spot VMs, GKE Autopilot, Istio, Eventarc, Migration tools |
+| **Compute & Modernization** | App Engine, Cloud Run (Services, Jobs, Worker Pools, Instances), GCE, Spot VMs, GKE Autopilot, Istio, Eventarc, Migration tools |
 | **Hybrid & Multi-Cloud** | Anthos/GKE Enterprise, Cross-Cloud Interconnect, ACM, Connect Gateway, Cloud Service Mesh, GDC |
 | **Storage & Data** | GCS classes, Memorystore, Cloud SQL, Spanner, Bigtable, Firestore, Knowledge Catalog, DMS, Transfer Service |
 | **BigQuery & Analytics** | Federated queries, Cross-Cloud Lakehouse, Lakehouse for Iceberg, BQ Sharing, BQML, Spanner Columnar Engine |

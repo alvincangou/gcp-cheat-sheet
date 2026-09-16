@@ -234,7 +234,7 @@
                 <span class="tag">App Engine Flex</span> <span class="label">Containers:</span> Uses underlying Compute Engine VMs. Slower to scale, <b>does not scale to zero</b>. Allows custom Dockerfiles and background threads.
             </div>
             <div class="item">
-                <span class="tag">Cloud Run</span> <span class="label">Serverless CaaS:</span> Run any stateless HTTP container. Scales to zero. Supports concurrent requests per instance (cheaper than Cloud Functions for high traffic).
+                <span class="tag">Cloud Run</span> <span class="label">Serverless CaaS:</span> Run any stateless HTTP container. Scales to zero. Supports concurrent requests per instance (cheaper than Cloud Functions for high traffic). <b>4 modes:</b> Services, Jobs, Worker Pools &amp; Instances (detailed comparison table below).
             </div>
             <div class="item">
                 <span class="tag">Compute Engine (GCE)</span> <span class="label">IaaS:</span> Use for legacy apps, custom kernels, strict licensing (BYOL), or specialized hardware (GPUs/TPUs).
@@ -513,6 +513,69 @@
             </div>
         </div>
         </div>
+    <section style="margin-top: 30px; background: white; border-radius: 8px; padding: 25px; box-shadow: var(--shadow); border-top: 6px solid var(--gcp-green);">
+        <h2 style="font-size: 1.8em; color: var(--gcp-blue); border-bottom: 3px solid #eee; margin-top: 0;">
+            <i class="fas fa-server"></i> Cloud Run: Deployment Models Comparison
+        </h2>
+        <p class="desc" style="margin-bottom: 10px;">Four distinct Cloud Run resource types sharing the same container runtime, but with fundamentally different ingress, scaling, and billing semantics.</p>
+        <div style="overflow-x: auto;">
+            <table style="min-width: 900px;">
+                <thead>
+                    <tr>
+                        <th>Cloud Run Type</th>
+                        <th>Primary Use Case</th>
+                        <th>Ingress / Trigger</th>
+                        <th>Public HTTPS Endpoint</th>
+                        <th>Autoscaling Behavior</th>
+                        <th>Billing &amp; Cost Model</th>
+                        <th>Key Particularities &amp; Constraints</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Cloud Run Services</b></td>
+                        <td>REST APIs, public web applications, webhooks</td>
+                        <td>Inbound HTTP/gRPC requests</td>
+                        <td>Yes (Auto-assigned per revision)</td>
+                        <td>0 to N (Scales to zero based on request traffic)</td>
+                        <td>Active execution time (vCPU/RAM) + $0.40/1M request fees</td>
+                        <td>Ephemeral instances; containers scale up/down dynamically based on concurrency.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Cloud Run Instances</b></td>
+                        <td>Personal AI agents (OpenClaw, Hermes), lightweight bastion hosts</td>
+                        <td>Continuous background execution</td>
+                        <td>Yes (Persistent static HTTPS URL across updates)</td>
+                        <td>Fixed at 1 (Singleton; no autoscaling)</td>
+                        <td>Flat continuous rate (~$5.70/mo for 1 vCPU / 1 GiB shared burst baseline)</td>
+                        <td>Up to 7-day continuous execution with auto-restart; state preserved via Cloud Storage volume mounts.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Cloud Run Worker Pools</b></td>
+                        <td>Queue consumers (Kafka, Pub/Sub, RabbitMQ), streaming data ingestion</td>
+                        <td>Continuous event loop / queue polling</td>
+                        <td>No (Egress/VPC only; no inbound listening ports)</td>
+                        <td>0 to N (Autoscales based on external queue backlog depth/lag)</td>
+                        <td>Discounted vCPU/RAM rates (up to 40% cheaper than Services); zero request fees</td>
+                        <td>Eliminates HTTP push timeout limits; handles SIGTERM gracefully for in-flight message completion.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Cloud Run Jobs</b></td>
+                        <td>Scheduled ETL pipelines, batch data processing, DB migrations</td>
+                        <td>Manual invocation, Cloud Scheduler (Cron)</td>
+                        <td>No</td>
+                        <td>Spawns 1 to N parallel tasks to completion</td>
+                        <td>Pay strictly per execution duration ($0.00 when idle)</td>
+                        <td>Non-continuous execution; runs tasks to completion (up to 24 hrs) and terminates automatically.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="highlight" style="font-size: 0.9em; margin-top: 15px;">
+            <b>Exam Trap:</b> Do not deploy a queue/stream consumer as a <b>Cloud Run Service</b> — inbound HTTP push has request timeout limits. Use <b>Cloud Run Worker Pools</b> (pull-based, no inbound ports). Likewise, batch/scheduled work belongs in <b>Cloud Run Jobs</b> (pay only while running), never in a Service kept warm 24/7.
+        </div>
+    </section>
+
     <section style="margin-top: 40px; background: white; border-radius: 8px; padding: 25px; box-shadow: var(--shadow); border-top: 6px solid var(--gcp-blue);">
     <h2 style="font-size: 1.8em; color: var(--gcp-blue); border-bottom: 3px solid #eee; margin-top: 0;">
         <i class="fas fa-paste"></i> Google Cloud PCA Case Studies (2026 Edition - V6.1)
